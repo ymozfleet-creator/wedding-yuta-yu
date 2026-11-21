@@ -6,122 +6,115 @@
 <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data:; connect-src 'self' https://*.supabase.co; frame-src https://www.google.com; base-uri 'none'; form-action 'none'; object-src 'none'">
 <meta name="referrer" content="strict-origin-when-cross-origin">
 <meta name="robots" content="noindex, nofollow">
+<meta name="theme-color" content="#23392f">
 <title>Wedding Invitation</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400&family=Shippori+Mincho:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Italiana&family=Zen+Old+Mincho:wght@400;600;700&display=swap">
 <link rel="stylesheet" href="css/style.css">
 </head>
 <body class="is-locked">
 
-<!-- ===== オープニング（封筒） ===== -->
-<div class="opening" id="opening" role="dialog" aria-label="招待状を開く">
-  <div class="opening__inner">
-    <p class="opening__en">Wedding Invitation</p>
-    <p class="opening__names" data-bind="namesEn"></p>
-    <button type="button" class="envelope" id="openBtn" aria-label="招待状を開く">
-      <span class="envelope__flap"></span>
-      <span class="envelope__seal">招</span>
-    </button>
-    <p class="opening__hint">タップして開く</p>
-  </div>
-</div>
+<main>
 
-<main id="main">
-
-  <!-- ===== メインビジュアル ===== -->
+  <!-- ===== メインビジュアル（木のルーバーが開く） ===== -->
   <header class="hero" id="top">
-    <div class="hero__photo" data-bg="heroPhoto"></div>
+    <div class="hero__photo" data-bg="heroPhoto" role="img" aria-label="お二人の写真"></div>
     <div class="hero__shade"></div>
+
     <div class="hero__text">
-      <p class="hero__en">We're getting married</p>
-      <h1 class="hero__names" data-bind="namesEn"></h1>
+      <p class="hero__names"><span data-bind="groom.nameEn"></span><span class="hero__amp">&amp;</span><span data-bind="bride.nameEn"></span></p>
       <p class="hero__date" data-bind="dateLabel"></p>
+      <p class="hero__place" data-bind="venue.placeLine"></p>
     </div>
-    <a class="hero__scroll" href="#greeting" aria-label="下へスクロール"><span></span>Scroll</a>
+
+    <div class="louvers" id="louvers">
+      <div class="louvers__slats" aria-hidden="true"></div>
+      <div class="louvers__card">
+        <p class="louvers__lead">結婚式のご案内</p>
+        <p class="louvers__names" data-bind="signature"></p>
+        <button type="button" class="louvers__open" id="openBtn">招待状をひらく</button>
+      </div>
+    </div>
   </header>
 
-  <!-- ===== ご挨拶 ===== -->
-  <section class="section" id="greeting">
-    <p class="section__en">Message</p>
-    <h2 class="section__ja">ご挨拶</h2>
-    <div class="greeting" data-list="greeting"></div>
-    <p class="greeting__sign" data-bind="signature"></p>
+  <!-- ===== ご挨拶（縦書き） ===== -->
+  <section class="greeting" id="greeting" aria-labelledby="hGreeting">
+    <h2 class="h2" id="hGreeting">ご挨拶</h2>
+    <div class="greeting__scroll" tabindex="0" aria-label="ご挨拶の本文">
+      <div class="greeting__body">
+        <div data-list="greeting"></div>
+        <p class="greeting__sign" data-bind="signature"></p>
+      </div>
+    </div>
   </section>
 
   <!-- ===== カウントダウン ===== -->
-  <section class="section section--tint" id="countdown">
-    <p class="section__en">Countdown</p>
-    <h2 class="section__ja">結婚式まで</h2>
-    <div class="countdown" aria-live="off">
-      <div class="countdown__cell"><span id="cdDays">--</span><small>Days</small></div>
-      <div class="countdown__cell"><span id="cdHours">--</span><small>Hours</small></div>
-      <div class="countdown__cell"><span id="cdMins">--</span><small>Min</small></div>
-      <div class="countdown__cell"><span id="cdSecs">--</span><small>Sec</small></div>
-    </div>
-    <p class="countdown__after" id="cdAfter" hidden>本日はありがとうございました</p>
+  <section class="count" id="countdown" aria-labelledby="hCount">
+    <h2 class="h2 h2--small" id="hCount">挙式まで</h2>
+    <p class="count__days"><span class="count__num" id="cdDays">--</span><span class="count__unit">日</span></p>
+    <p class="count__clock" aria-hidden="true"><span id="cdHours">--</span>時間 <span id="cdMins">--</span>分 <span id="cdSecs">--</span>秒</p>
+    <p class="count__after" id="cdAfter" hidden>ご列席いただき ありがとうございました</p>
   </section>
 
   <!-- ===== プロフィール ===== -->
-  <section class="section" id="profile">
-    <p class="section__en">Profile</p>
-    <h2 class="section__ja">新郎新婦</h2>
-    <div class="profiles">
-      <article class="person reveal" data-person="groom"></article>
-      <article class="person reveal" data-person="bride"></article>
+  <section class="people" id="profile" aria-labelledby="hProfile">
+    <h2 class="h2" id="hProfile">ふたりについて</h2>
+    <div class="people__grid">
+      <article class="person" data-person="groom"></article>
+      <article class="person" data-person="bride"></article>
     </div>
   </section>
 
-  <!-- ===== ギャラリー ===== -->
-  <section class="section section--tint" id="gallery">
-    <p class="section__en">Gallery</p>
-    <h2 class="section__ja">写真</h2>
-    <div class="gallery" id="galleryGrid"></div>
+  <!-- ===== ギャラリー（横に流れる） ===== -->
+  <section class="gallery" id="gallery" aria-labelledby="hGallery">
+    <div class="gallery__head">
+      <h2 class="h2" id="hGallery">写真</h2>
+      <p class="gallery__hint">横にスワイプしてご覧ください</p>
+    </div>
+    <div class="gallery__strip" id="galleryGrid" tabindex="0" aria-label="写真一覧"></div>
   </section>
 
   <!-- ===== ご案内 ===== -->
-  <section class="section" id="information">
-    <p class="section__en">Information</p>
-    <h2 class="section__ja">ご案内</h2>
+  <section class="info" id="information" aria-labelledby="hInfo">
+    <h2 class="h2" id="hInfo">ご案内</h2>
 
-    <div class="info reveal">
-      <h3 class="info__title">日時</h3>
+    <div class="info__block">
+      <h3 class="h3">日時</h3>
       <p class="info__date" data-bind="dateLabel"></p>
-      <dl class="schedule" id="schedule"></dl>
+      <p class="info__jst" id="jstLine"></p>
+      <ol class="timeline" id="schedule"></ol>
     </div>
 
-    <div class="info reveal">
-      <h3 class="info__title">会場</h3>
+    <div class="info__block">
+      <h3 class="h3">会場</h3>
       <p class="info__venue" data-bind="venue.name"></p>
-      <p class="info__text" data-bind="venue.address"></p>
-      <p class="info__text" id="telLine">TEL <a data-tel="venue.tel"></a></p>
+      <p class="info__addr" data-bind="venue.address"></p>
+      <p class="info__addr" id="telLine">TEL <a data-tel="venue.tel"></a></p>
       <ul class="info__access" data-list="venue.access"></ul>
       <div class="map" id="mapWrap"></div>
-      <a class="btn btn--ghost" id="mapLink" target="_blank" rel="noopener noreferrer">Googleマップで開く</a>
+      <a class="link-btn" id="mapLink" target="_blank" rel="noopener noreferrer">Googleマップで開く</a>
     </div>
 
-    <div class="info reveal" id="notesBlock">
-      <h3 class="info__title">その他のご案内</h3>
+    <div class="info__block" id="notesBlock">
+      <h3 class="h3">そのほかのご案内</h3>
       <dl class="notes" id="notes"></dl>
     </div>
   </section>
 
   <!-- ===== ご出欠 ===== -->
-  <section class="section section--tint" id="rsvp">
-    <p class="section__en">RSVP</p>
-    <h2 class="section__ja">ご出欠のご返信</h2>
-    <p class="rsvp__lead">お手数ではございますが<br><strong data-bind="rsvpDeadlineLabel"></strong> までに<br>ご返信くださいますようお願い申し上げます</p>
+  <section class="rsvp" id="rsvp" aria-labelledby="hRsvp">
+    <h2 class="h2 h2--light" id="hRsvp">ご出欠のご返信</h2>
+    <p class="rsvp__lead"><span data-bind="rsvpDeadlineLabel"></span>までに<br>ご返信をお願いいたします</p>
     <p class="demo-banner" id="demoBanner" hidden>現在はお試し表示です。送信しても回答は保存されません。</p>
 
-    <!-- 締切後 -->
-    <div class="rsvp-closed" id="rsvpClosed" hidden>
-      <p>ご回答の受付は終了いたしました。<br>ご連絡の際は新郎新婦まで直接お知らせください。</p>
+    <div class="panel rsvp-closed" id="rsvpClosed" hidden>
+      <p>ご回答の受付は終了しました。<br>ご連絡は新郎新婦まで直接お願いいたします。</p>
     </div>
 
-    <!-- 入力 -->
-    <form class="form" id="rsvpForm" novalidate>
-      <fieldset class="field field--choice">
-        <legend>ご出欠 <span class="req">必須</span></legend>
+    <form class="panel form" id="rsvpForm" novalidate>
+      <fieldset class="field">
+        <legend class="field__label">ご出欠 <span class="req">必須</span></legend>
         <div class="choice choice--big">
           <label><input type="radio" name="attendance" value="attend" required><span>ご出席</span></label>
           <label><input type="radio" name="attendance" value="decline"><span>ご欠席</span></label>
@@ -129,11 +122,11 @@
         <p class="field__err" data-err="attendance"></p>
       </fieldset>
 
-      <fieldset class="field field--choice">
-        <legend>ゲスト区分 <span class="req">必須</span></legend>
+      <fieldset class="field">
+        <legend class="field__label">ゲスト区分 <span class="req">必須</span></legend>
         <div class="choice">
-          <label><input type="radio" name="side" value="groom" required><span>新郎側ゲスト</span></label>
-          <label><input type="radio" name="side" value="bride"><span>新婦側ゲスト</span></label>
+          <label><input type="radio" name="side" value="groom" required><span>新郎側</span></label>
+          <label><input type="radio" name="side" value="bride"><span>新婦側</span></label>
         </div>
         <p class="field__err" data-err="side"></p>
       </fieldset>
@@ -141,8 +134,8 @@
       <div class="field">
         <span class="field__label">お名前 <span class="req">必須</span></span>
         <div class="row2">
-          <input type="text" name="last_name" placeholder="姓" maxlength="30" autocomplete="family-name" required>
-          <input type="text" name="first_name" placeholder="名" maxlength="30" autocomplete="given-name" required>
+          <input type="text" name="last_name" placeholder="姓" maxlength="30" autocomplete="family-name" required aria-label="姓">
+          <input type="text" name="first_name" placeholder="名" maxlength="30" autocomplete="given-name" required aria-label="名">
         </div>
         <p class="field__err" data-err="name"></p>
       </div>
@@ -150,8 +143,8 @@
       <div class="field">
         <span class="field__label">ふりがな <span class="req">必須</span></span>
         <div class="row2">
-          <input type="text" name="last_kana" placeholder="せい" maxlength="30" required>
-          <input type="text" name="first_kana" placeholder="めい" maxlength="30" required>
+          <input type="text" name="last_kana" placeholder="せい" maxlength="30" required aria-label="せい">
+          <input type="text" name="first_kana" placeholder="めい" maxlength="30" required aria-label="めい">
         </div>
         <p class="field__err" data-err="kana"></p>
       </div>
@@ -163,72 +156,68 @@
       </div>
 
       <div class="field">
-        <label class="field__label" for="phone">電話番号 <span class="opt">任意</span></label>
+        <label class="field__label" for="phone">電話番号</label>
         <input type="tel" id="phone" name="phone" maxlength="20" autocomplete="tel" inputmode="tel" placeholder="090-0000-0000">
         <p class="field__err" data-err="phone"></p>
       </div>
 
       <div class="field">
-        <span class="field__label">ご住所 <span class="opt">任意</span></span>
-        <input type="text" name="postal_code" maxlength="8" autocomplete="postal-code" inputmode="numeric" placeholder="郵便番号（例：165-0023）" class="w-half">
-        <input type="text" name="address" maxlength="200" autocomplete="street-address" placeholder="都道府県・市区町村・番地・建物名">
-        <p class="field__hint">席次表や当日のご案内、お礼状の送付に使わせていただきます</p>
+        <span class="field__label">ご住所</span>
+        <input type="text" name="postal_code" maxlength="8" autocomplete="postal-code" inputmode="numeric" placeholder="郵便番号" class="w-half" aria-label="郵便番号">
+        <input type="text" name="address" maxlength="200" autocomplete="street-address" placeholder="都道府県・市区町村・番地・建物名" aria-label="住所">
+        <p class="field__hint">当日のご案内やお礼状の送付に使わせていただきます</p>
         <p class="field__err" data-err="postal_code"></p>
       </div>
 
-      <!-- 出席時のみ -->
-      <div class="attend-only" id="attendOnly">
+      <div id="attendOnly">
         <div class="field">
-          <label class="field__label" for="allergy">アレルギー・苦手な食材 <span class="opt">任意</span></label>
+          <label class="field__label" for="allergy">アレルギー・苦手な食材</label>
           <textarea id="allergy" name="allergy" maxlength="300" rows="2" placeholder="例：えび・かに（なければ空欄で結構です）"></textarea>
         </div>
 
         <div class="field">
-          <span class="field__label">同伴者 <span class="opt">任意</span></span>
-          <p class="field__hint">ご家族などご一緒に出席される方がいらっしゃる場合はご入力ください</p>
+          <span class="field__label">ご一緒に出席される方</span>
+          <p class="field__hint">ご家族などがいらっしゃる場合はお一人ずつ追加してください</p>
           <div id="companions"></div>
-          <button type="button" class="btn btn--ghost btn--sm" id="addCompanion">＋ 同伴者を追加</button>
+          <button type="button" class="ghost-btn" id="addCompanion">＋ 同伴者を追加</button>
         </div>
       </div>
 
       <div class="field">
-        <label class="field__label" for="message">新郎新婦へのメッセージ <span class="opt">任意</span></label>
+        <label class="field__label" for="message">ふたりへのメッセージ</label>
         <textarea id="message" name="message" maxlength="500" rows="4"></textarea>
         <p class="field__count"><span id="msgCount">0</span> / 500</p>
       </div>
 
-      <!-- スパム対策（人には見えない欄） -->
       <div class="hp" aria-hidden="true">
         <label>この欄は空のままにしてください<input type="text" name="website" tabindex="-1" autocomplete="off"></label>
       </div>
 
-      <p class="form__privacy">ご入力いただいた情報は、本結婚式のご案内・準備のためにのみ使用し、新郎新婦以外には公開いたしません。</p>
+      <p class="form__privacy">ご入力いただいた情報は、この結婚式のご案内と準備のためだけに使い、新郎新婦以外には公開しません。</p>
 
-      <button type="submit" class="btn btn--primary">入力内容を確認する</button>
+      <button type="submit" class="main-btn">入力内容を確認する</button>
       <p class="field__err field__err--center" id="formErr"></p>
     </form>
 
-    <!-- 確認 -->
-    <div class="confirm" id="confirmView" hidden>
-      <h3 class="confirm__title">ご入力内容の確認</h3>
+    <div class="panel confirm" id="confirmView" hidden>
+      <h3 class="confirm__title">この内容で送信します</h3>
       <dl class="confirm__list" id="confirmList"></dl>
       <div class="confirm__btns">
-        <button type="button" class="btn btn--ghost" id="backBtn">修正する</button>
-        <button type="button" class="btn btn--primary" id="sendBtn">この内容で送信する</button>
+        <button type="button" class="ghost-btn" id="backBtn">修正する</button>
+        <button type="button" class="main-btn" id="sendBtn">この内容で送信する</button>
       </div>
       <p class="field__err field__err--center" id="sendErr"></p>
     </div>
 
-    <!-- 完了 -->
-    <div class="thanks" id="thanksView" hidden>
-      <p class="thanks__en">Thank you</p>
+    <div class="panel thanks" id="thanksView" hidden>
+      <p class="thanks__word">Mahalo</p>
       <p class="thanks__msg" id="thanksMsg"></p>
     </div>
   </section>
 
   <footer class="footer">
     <p class="footer__closing" data-bind="closing"></p>
-    <p class="footer__names" data-bind="namesEn"></p>
+    <p class="footer__names"><span data-bind="groom.nameEn"></span> &amp; <span data-bind="bride.nameEn"></span></p>
   </footer>
 </main>
 

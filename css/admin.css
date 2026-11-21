@@ -1,4 +1,4 @@
-:root { --ink:#2f2a26; --sub:#7a706a; --line:#e4dcd0; --bg:#f7f4ef; --gold:#a88a5b; --gold-d:#8c7046; --err:#b4503f; }
+:root { --ink:#2f2a26; --sub:#7a706a; --line:#d3dbd3; --bg:#eef1ec; --gold:#23392f; --gold-d:#1c2621; --err:#b4503f; }
 * { box-sizing: border-box; }
 body { margin:0; background:var(--bg); color:var(--ink); font-family: -apple-system, "Hiragino Sans", "Yu Gothic", "Noto Sans JP", sans-serif; font-size:14px; line-height:1.6; }
 [hidden] { display:none !important; }
@@ -17,7 +17,7 @@ input, select { font:inherit; font-size:15px; padding:8px 10px; border:1px solid
 .btn:hover { background:var(--gold-d); }
 .btn:disabled { opacity:.6; cursor:wait; }
 .btn--ghost { background:#fff; color:var(--gold-d); }
-.btn--ghost:hover { background:#faf6ef; }
+.btn--ghost:hover { background:#f4f6f2; }
 .err { color:var(--err); font-size:13px; margin:0; }
 .err:empty { display:none; }
 
@@ -38,7 +38,7 @@ input, select { font:inherit; font-size:15px; padding:8px 10px; border:1px solid
 .table-wrap { overflow-x:auto; background:#fff; border:1px solid var(--line); border-radius:6px; }
 .tbl { border-collapse:collapse; width:100%; min-width:1200px; }
 .tbl th, .tbl td { padding:9px 10px; border-bottom:1px solid var(--line); text-align:left; vertical-align:top; font-size:13px; }
-.tbl th { background:#faf7f2; font-weight:600; white-space:nowrap; position:sticky; top:0; }
+.tbl th { background:#f4f6f2; font-weight:600; white-space:nowrap; position:sticky; top:0; }
 .tbl td { white-space:pre-wrap; word-break:break-word; max-width:260px; }
 .tbl tr.is-dup td { color:#aaa; }
 .tag { display:inline-block; font-size:11px; padding:1px 8px; border-radius:10px; white-space:nowrap; }

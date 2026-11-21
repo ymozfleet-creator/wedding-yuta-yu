@@ -72,7 +72,7 @@
   var photos = (C.gallery || []).map(safeImg).filter(Boolean);
   if (!photos.length) $("#gallery").hidden = true;
   photos.forEach(function (src, i) {
-    var b = el("button", "gallery__item reveal");
+    var b = el("button", "gallery__item");
     b.type = "button"; setBg(b, src);
     b.setAttribute("aria-label", "写真 " + (i + 1) + " を拡大");
     b.addEventListener("click", function () { openLightbox(src); });
@@ -91,7 +91,23 @@
 
   // スケジュール
   var sch = $("#schedule");
-  (C.schedule || []).forEach(function (s) { sch.appendChild(el("dt", null, s.label)); sch.appendChild(el("dd", null, s.time)); });
+  (C.schedule || []).forEach(function (s) {
+    var li = el("li");
+    li.appendChild(el("span", "timeline__time", s.time));
+    li.appendChild(el("span", "timeline__label", s.label));
+    sch.appendChild(li);
+  });
+
+  // 日本時間の換算（海外挙式のため）
+  try {
+    var cs = new Date(C.ceremonyStart);
+    if (!isNaN(cs)) {
+      var parts = {};
+      new Intl.DateTimeFormat("ja-JP", { timeZone: "Asia/Tokyo", year: "numeric", month: "numeric", day: "numeric", weekday: "short", hour: "numeric", minute: "2-digit", hourCycle: "h23" })
+        .formatToParts(cs).forEach(function (p) { parts[p.type] = p.value; });
+      $("#jstLine").textContent = "挙式開始は日本時間で " + parts.year + "年" + parts.month + "月" + parts.day + "日（" + parts.weekday + "）" + parts.hour + ":" + parts.minute + " です";
+    }
+  } catch (e) { /* 換算できない環境では表示しない */ }
 
   // 地図
   var q = encodeURIComponent(C.venue.mapQuery || C.venue.address || "");
@@ -108,22 +124,23 @@
   if (!(C.notes || []).length) $("#notesBlock").hidden = true;
   (C.notes || []).forEach(function (n) { notes.appendChild(el("dt", null, n.title)); notes.appendChild(el("dd", null, n.body)); });
 
-  /* ============ オープニング ============ */
-  var opening = $("#opening");
+  /* ============ オープニング（木のルーバーが開く） ============ */
+  var louvers = $("#louvers"), slatBox = $(".louvers__slats");
+  var N = window.innerWidth >= 900 ? 16 : 10;
+  slatBox.style.setProperty("--n", N);
+  for (var si = 0; si < N; si++) {
+    var sl = el("span", "slat");
+    sl.style.setProperty("--i", Math.abs(si - (N - 1) / 2) | 0);  // 中央から外側へ順に開く
+    slatBox.appendChild(sl);
+  }
+  function unlock() { document.body.classList.remove("is-locked"); }
   function openInvitation() {
-    opening.classList.add("is-opening");
-    setTimeout(function () {
-      opening.classList.add("is-open");
-      document.body.classList.remove("is-locked");
-      document.body.classList.add("is-ready");
-    }, 700);
-    setTimeout(function () { opening.remove(); }, 1800);
+    louvers.classList.add("is-opening");
+    unlock();
+    setTimeout(function () { louvers.classList.add("is-gone"); }, 1700);
   }
   $("#openBtn").addEventListener("click", openInvitation);
-  // ページ内リンクで直接開かれた場合はオープニングを省略
-  if (location.hash && location.hash !== "#top") {
-    opening.remove(); document.body.classList.remove("is-locked"); document.body.classList.add("is-ready");
-  }
+  if (location.hash && location.hash !== "#top") { louvers.classList.add("is-gone"); unlock(); }
 
   /* ============ スクロール表示 ============ */
   if ("IntersectionObserver" in window) {

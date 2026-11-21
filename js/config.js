@@ -52,7 +52,7 @@ window.WEDDING_CONFIG = {
     { label: "受付", time: "10:30" },
     { label: "挙式", time: "11:00" },
     { label: "披露宴", time: "12:00" },
-    { label: "お開き", time: "14:30（予定）" }
+    { label: "お開き（予定）", time: "14:30" }
   ],
 
   /* ---------- 回答締切（この日時を過ぎるとフォームを閉じます） ---------- */
@@ -68,6 +68,8 @@ window.WEDDING_CONFIG = {
       "ハワイ・オアフ島 ホノルル市街を見下ろすタンタラスの丘に建つ歴史的邸宅です",
       "山道を上った先にあるため、会場までの移動方法はあらためてご案内いたします"
     ],
+    // メイン写真の下に出す英字の場所表記
+    placeLine: "Liljestrand House, Honolulu",
     // Googleマップで表示する検索語（会場名か住所）
     mapQuery: "Liljestrand House, 3300 Tantalus Dr, Honolulu, HI 96822"
   },
@@ -79,7 +81,7 @@ window.WEDDING_CONFIG = {
   ],
 
   /* ---------- 結びの言葉 ---------- */
-  closing: "お会いできることを心より楽しみにしております",
+  closing: "タンタラスの丘で 皆さまにお会いできることを楽しみにしております",
   signature: "茂住 雄太・島崎 唯有",
 
   /* ---------- 同伴者の上限人数 ---------- */
