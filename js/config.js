@@ -8,7 +8,7 @@ window.WEDDING_CONFIG = {
   /* ---------- お二人 ---------- */
   groom: {
     nameJa: "茂住 雄太",
-    nameEn: "YUTA",
+    nameEn: "Yuta",
     role: "新郎",
     photo: "images/groom.jpg",
     profile: [
@@ -17,7 +17,7 @@ window.WEDDING_CONFIG = {
   },
   bride: {
     nameJa: "島崎 唯有",
-    nameEn: "YU",
+    nameEn: "Yu",
     role: "新婦",
     photo: "images/bride.jpg",
     profile: [
