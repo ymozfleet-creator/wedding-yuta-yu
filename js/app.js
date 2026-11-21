@@ -124,23 +124,16 @@
   if (!(C.notes || []).length) $("#notesBlock").hidden = true;
   (C.notes || []).forEach(function (n) { notes.appendChild(el("dt", null, n.title)); notes.appendChild(el("dd", null, n.body)); });
 
-  /* ============ オープニング（木のルーバーが開く） ============ */
-  var louvers = $("#louvers"), slatBox = $(".louvers__slats");
-  var N = window.innerWidth >= 900 ? 16 : 10;
-  slatBox.style.setProperty("--n", N);
-  for (var si = 0; si < N; si++) {
-    var sl = el("span", "slat");
-    sl.style.setProperty("--i", Math.abs(si - (N - 1) / 2) | 0);  // 中央から外側へ順に開く
-    slatBox.appendChild(sl);
-  }
+  /* ============ オープニング（青空の幕が上がる） ============ */
+  var opening = $("#opening");
   function unlock() { document.body.classList.remove("is-locked"); }
   function openInvitation() {
-    louvers.classList.add("is-opening");
+    opening.classList.add("is-open");
     unlock();
-    setTimeout(function () { louvers.classList.add("is-gone"); }, 1700);
+    setTimeout(function () { opening.hidden = true; }, 1200);
   }
   $("#openBtn").addEventListener("click", openInvitation);
-  if (location.hash && location.hash !== "#top") { louvers.classList.add("is-gone"); unlock(); }
+  if (location.hash && location.hash !== "#top") { opening.hidden = true; unlock(); }
 
   /* ============ スクロール表示 ============ */
   if ("IntersectionObserver" in window) {

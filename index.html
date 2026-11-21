@@ -6,113 +6,160 @@
 <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data:; connect-src 'self' https://*.supabase.co; frame-src https://www.google.com; base-uri 'none'; form-action 'none'; object-src 'none'">
 <meta name="referrer" content="strict-origin-when-cross-origin">
 <meta name="robots" content="noindex, nofollow">
-<meta name="theme-color" content="#23392f">
+<meta name="theme-color" content="#f59a7a">
 <title>Wedding Invitation</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Italiana&family=Zen+Old+Mincho:wght@400;600;700&display=swap">
-<link rel="stylesheet" href="css/style.css?v=2">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Parisienne&family=Cormorant+Garamond:ital,wght@0,500;1,500&family=Zen+Maru+Gothic:wght@400;500;700&display=swap">
+<link rel="stylesheet" href="css/style.css?v=3">
 </head>
 <body class="is-locked">
 
+<!-- ===== 共通で使う絵（オリジナル） ===== -->
+<svg class="sprite" aria-hidden="true" focusable="false">
+  <symbol id="palm" viewBox="0 0 200 300">
+    <path d="M90 300 C97 240 105 182 111 122 L121 124 C116 184 110 244 106 300 Z"/>
+    <path d="M116 118 C80 88 40 94 6 124 C42 102 80 106 116 124 Z"/>
+    <path d="M116 118 C150 84 188 90 200 128 C176 102 150 102 118 125 Z"/>
+    <path d="M116 118 C95 70 60 52 26 58 C62 70 90 86 114 121 Z"/>
+    <path d="M116 118 C136 64 170 48 196 58 C166 68 140 86 119 122 Z"/>
+    <path d="M116 118 C110 78 120 40 138 16 C126 50 122 86 120 120 Z"/>
+    <path d="M116 120 C88 122 58 142 42 180 C68 154 94 138 116 126 Z"/>
+    <path d="M118 120 C146 126 172 148 182 184 C160 158 140 142 118 127 Z"/>
+    <circle cx="112" cy="128" r="5"/><circle cx="121" cy="130" r="5"/><circle cx="116" cy="136" r="5"/>
+  </symbol>
+  <symbol id="plumeria" viewBox="-50 -50 100 100">
+    <g class="pl-petals">
+      <path d="M0 0 C16 -4 30 -22 18 -40 C6 -50 -6 -32 0 0 Z"/>
+      <path transform="rotate(72)" d="M0 0 C16 -4 30 -22 18 -40 C6 -50 -6 -32 0 0 Z"/>
+      <path transform="rotate(144)" d="M0 0 C16 -4 30 -22 18 -40 C6 -50 -6 -32 0 0 Z"/>
+      <path transform="rotate(216)" d="M0 0 C16 -4 30 -22 18 -40 C6 -50 -6 -32 0 0 Z"/>
+      <path transform="rotate(288)" d="M0 0 C16 -4 30 -22 18 -40 C6 -50 -6 -32 0 0 Z"/>
+    </g>
+    <circle class="pl-center" r="9"/>
+  </symbol>
+  <symbol id="wave" viewBox="0 0 1200 80" preserveAspectRatio="none">
+    <path d="M0 40 C150 78 300 2 450 40 C600 78 750 2 900 40 C1050 78 1200 2 1200 40 L1200 80 L0 80 Z"/>
+  </symbol>
+</svg>
+
+<!-- ===== オープニング：夕日と海 ===== -->
+<div class="opening" id="opening">
+  <div class="opening__sky"></div>
+  <div class="opening__sun"></div>
+  <div class="opening__sea">
+    <svg class="wave wave--a" preserveAspectRatio="none"><use href="#wave" width="100%" height="100%"/></svg>
+    <svg class="wave wave--b" preserveAspectRatio="none"><use href="#wave" width="100%" height="100%"/></svg>
+  </div>
+  <svg class="palm palm--l"><use href="#palm" width="100%" height="100%"/></svg>
+  <svg class="palm palm--r"><use href="#palm" width="100%" height="100%"/></svg>
+  <div class="opening__card">
+    <p class="opening__aloha">Aloha</p>
+    <p class="opening__lead">結婚式のご案内</p>
+    <p class="opening__names" data-bind="signature"></p>
+    <button type="button" class="pill-btn" id="openBtn">招待状をひらく</button>
+  </div>
+</div>
+
 <main>
 
-  <!-- ===== メインビジュアル（木のルーバーが開く） ===== -->
+  <!-- ===== メインビジュアル ===== -->
   <header class="hero" id="top">
     <div class="hero__photo" data-bg="heroPhoto" role="img" aria-label="お二人の写真"></div>
-    <div class="hero__shade"></div>
-
+    <div class="hero__glow"></div>
+    <svg class="palm hero__palm"><use href="#palm" width="100%" height="100%"/></svg>
     <div class="hero__text">
-      <p class="hero__names"><span data-bind="groom.nameEn"></span><span class="hero__amp">&amp;</span><span data-bind="bride.nameEn"></span></p>
+      <p class="hero__sub">We're getting married in Hawaiʻi</p>
+      <h1 class="hero__names"><span data-bind="groom.nameEn"></span> <span class="hero__amp">&amp;</span> <span data-bind="bride.nameEn"></span></h1>
       <p class="hero__date" data-bind="dateLabel"></p>
       <p class="hero__place" data-bind="venue.placeLine"></p>
     </div>
-
-    <div class="louvers" id="louvers">
-      <div class="louvers__slats" aria-hidden="true"></div>
-      <div class="louvers__card">
-        <p class="louvers__lead">結婚式のご案内</p>
-        <p class="louvers__names" data-bind="signature"></p>
-        <button type="button" class="louvers__open" id="openBtn">招待状をひらく</button>
-      </div>
-    </div>
+    <svg class="hero__wave" preserveAspectRatio="none"><use href="#wave" width="100%" height="100%"/></svg>
   </header>
 
-  <!-- ===== ご挨拶（縦書き） ===== -->
-  <section class="greeting" id="greeting" aria-labelledby="hGreeting">
-    <h2 class="h2" id="hGreeting">ご挨拶</h2>
-    <div class="greeting__scroll" tabindex="0" aria-label="ご挨拶の本文">
-      <div class="greeting__body">
-        <div data-list="greeting"></div>
-        <p class="greeting__sign" data-bind="signature"></p>
-      </div>
-    </div>
+  <!-- ===== ご挨拶 ===== -->
+  <section class="sec greeting" id="greeting" aria-labelledby="hGreeting">
+    <svg class="flower flower--deco" aria-hidden="true"><use href="#plumeria" width="100%" height="100%"/></svg>
+    <h2 class="head" id="hGreeting"><span class="head__script">Aloha</span><span class="head__ja">ご挨拶</span></h2>
+    <div class="greeting__body" data-list="greeting"></div>
+    <p class="greeting__sign" data-bind="signature"></p>
   </section>
 
   <!-- ===== カウントダウン ===== -->
-  <section class="count" id="countdown" aria-labelledby="hCount">
-    <h2 class="h2 h2--small" id="hCount">挙式まで</h2>
-    <p class="count__days"><span class="count__num" id="cdDays">--</span><span class="count__unit">日</span></p>
-    <p class="count__clock" aria-hidden="true"><span id="cdHours">--</span>時間 <span id="cdMins">--</span>分 <span id="cdSecs">--</span>秒</p>
-    <p class="count__after" id="cdAfter" hidden>ご列席いただき ありがとうございました</p>
+  <section class="countdown" id="countdown" aria-labelledby="hCount">
+    <svg class="edge edge--top" preserveAspectRatio="none"><use href="#wave" width="100%" height="100%"/></svg>
+    <h2 class="head head--light" id="hCount"><span class="head__script">Countdown</span><span class="head__ja">挙式まで</span></h2>
+    <div class="cd">
+      <div class="cd__cell"><span class="cd__num" id="cdDays">--</span><span class="cd__unit">日</span></div>
+      <div class="cd__cell"><span class="cd__num" id="cdHours">--</span><span class="cd__unit">時間</span></div>
+      <div class="cd__cell"><span class="cd__num" id="cdMins">--</span><span class="cd__unit">分</span></div>
+      <div class="cd__cell"><span class="cd__num" id="cdSecs">--</span><span class="cd__unit">秒</span></div>
+    </div>
+    <p class="cd__after" id="cdAfter" hidden>ご列席いただき ありがとうございました</p>
+    <svg class="edge edge--bottom" preserveAspectRatio="none"><use href="#wave" width="100%" height="100%"/></svg>
   </section>
 
-  <!-- ===== プロフィール ===== -->
-  <section class="people" id="profile" aria-labelledby="hProfile">
-    <h2 class="h2" id="hProfile">ふたりについて</h2>
+  <!-- ===== ふたりについて ===== -->
+  <section class="sec people" id="profile" aria-labelledby="hProfile">
+    <h2 class="head" id="hProfile"><span class="head__script">About us</span><span class="head__ja">ふたりについて</span></h2>
     <div class="people__grid">
       <article class="person" data-person="groom"></article>
       <article class="person" data-person="bride"></article>
     </div>
   </section>
 
-  <!-- ===== ギャラリー（横に流れる） ===== -->
-  <section class="gallery" id="gallery" aria-labelledby="hGallery">
-    <div class="gallery__head">
-      <h2 class="h2" id="hGallery">写真</h2>
-      <p class="gallery__hint">横にスワイプしてご覧ください</p>
-    </div>
-    <div class="gallery__strip" id="galleryGrid" tabindex="0" aria-label="写真一覧"></div>
+  <!-- ===== 写真 ===== -->
+  <section class="sec gallery" id="gallery" aria-labelledby="hGallery">
+    <h2 class="head" id="hGallery"><span class="head__script">Gallery</span><span class="head__ja">写真</span></h2>
+    <div class="gallery__strip" id="galleryGrid" tabindex="0" aria-label="写真一覧（横にスワイプ）"></div>
+    <p class="gallery__hint">横にスワイプしてご覧ください</p>
   </section>
 
-  <!-- ===== ご案内 ===== -->
-  <section class="info" id="information" aria-labelledby="hInfo">
-    <h2 class="h2" id="hInfo">ご案内</h2>
+  <!-- ===== ご案内（大小のカード） ===== -->
+  <section class="sec info" id="information" aria-labelledby="hInfo">
+    <h2 class="head" id="hInfo"><span class="head__script">Information</span><span class="head__ja">ご案内</span></h2>
 
-    <div class="info__block">
-      <h3 class="h3">日時</h3>
-      <p class="info__date" data-bind="dateLabel"></p>
-      <p class="info__jst" id="jstLine"></p>
-      <ol class="timeline" id="schedule"></ol>
-    </div>
+    <div class="bento">
+      <article class="card card--sunset card--date">
+        <h3 class="card__title">日時</h3>
+        <p class="card__date" data-bind="dateLabel"></p>
+        <p class="card__jst" id="jstLine"></p>
+        <ol class="timeline" id="schedule"></ol>
+      </article>
 
-    <div class="info__block">
-      <h3 class="h3">会場</h3>
-      <p class="info__venue" data-bind="venue.name"></p>
-      <p class="info__addr" data-bind="venue.address"></p>
-      <p class="info__addr" id="telLine">TEL <a data-tel="venue.tel"></a></p>
-      <ul class="info__access" data-list="venue.access"></ul>
-      <div class="map" id="mapWrap"></div>
-      <a class="link-btn" id="mapLink" target="_blank" rel="noopener noreferrer">Googleマップで開く</a>
-    </div>
+      <article class="card card--venue">
+        <h3 class="card__title">会場</h3>
+        <p class="card__venue" data-bind="venue.name"></p>
+        <p class="card__addr" data-bind="venue.address"></p>
+        <p class="card__addr" id="telLine">TEL <a data-tel="venue.tel"></a></p>
+        <ul class="card__list" data-list="venue.access"></ul>
+      </article>
 
-    <div class="info__block" id="notesBlock">
-      <h3 class="h3">そのほかのご案内</h3>
-      <dl class="notes" id="notes"></dl>
+      <article class="card card--map">
+        <div class="map" id="mapWrap"></div>
+        <a class="map__link" id="mapLink" target="_blank" rel="noopener noreferrer">Googleマップで開く</a>
+      </article>
+
+      <article class="card card--notes" id="notesBlock">
+        <h3 class="card__title">そのほかのご案内</h3>
+        <dl class="notes" id="notes"></dl>
+      </article>
     </div>
   </section>
 
   <!-- ===== ご出欠 ===== -->
   <section class="rsvp" id="rsvp" aria-labelledby="hRsvp">
-    <h2 class="h2 h2--light" id="hRsvp">ご出欠のご返信</h2>
-    <p class="rsvp__lead"><span data-bind="rsvpDeadlineLabel"></span>までに<br>ご返信をお願いいたします</p>
+    <svg class="edge edge--top edge--sand" preserveAspectRatio="none"><use href="#wave" width="100%" height="100%"/></svg>
+    <svg class="flower flower--rsvp" aria-hidden="true"><use href="#plumeria" width="100%" height="100%"/></svg>
+    <h2 class="head head--light" id="hRsvp"><span class="head__script">RSVP</span><span class="head__ja">ご出欠のご返信</span></h2>
+    <p class="rsvp__lead"><strong data-bind="rsvpDeadlineLabel"></strong>までに<br>ご返信をお願いいたします</p>
     <p class="demo-banner" id="demoBanner" hidden>現在はお試し表示です。送信しても回答は保存されません。</p>
 
-    <div class="panel rsvp-closed" id="rsvpClosed" hidden>
+    <div class="glass rsvp-closed" id="rsvpClosed" hidden>
       <p>ご回答の受付は終了しました。<br>ご連絡は新郎新婦まで直接お願いいたします。</p>
     </div>
 
-    <form class="panel form" id="rsvpForm" novalidate>
+    <form class="glass form" id="rsvpForm" novalidate>
       <fieldset class="field">
         <legend class="field__label">ご出欠 <span class="req">必須</span></legend>
         <div class="choice choice--big">
@@ -195,33 +242,36 @@
 
       <p class="form__privacy">ご入力いただいた情報は、この結婚式のご案内と準備のためだけに使い、新郎新婦以外には公開しません。</p>
 
-      <button type="submit" class="main-btn">入力内容を確認する</button>
+      <button type="submit" class="pill-btn pill-btn--full">入力内容を確認する</button>
       <p class="field__err field__err--center" id="formErr"></p>
     </form>
 
-    <div class="panel confirm" id="confirmView" hidden>
+    <div class="glass confirm" id="confirmView" hidden>
       <h3 class="confirm__title">この内容で送信します</h3>
       <dl class="confirm__list" id="confirmList"></dl>
       <div class="confirm__btns">
         <button type="button" class="ghost-btn" id="backBtn">修正する</button>
-        <button type="button" class="main-btn" id="sendBtn">この内容で送信する</button>
+        <button type="button" class="pill-btn" id="sendBtn">この内容で送信する</button>
       </div>
       <p class="field__err field__err--center" id="sendErr"></p>
     </div>
 
-    <div class="panel thanks" id="thanksView" hidden>
+    <div class="glass thanks" id="thanksView" hidden>
       <p class="thanks__word">Mahalo</p>
       <p class="thanks__msg" id="thanksMsg"></p>
     </div>
   </section>
 
   <footer class="footer">
+    <svg class="palm footer__palm footer__palm--l"><use href="#palm" width="100%" height="100%"/></svg>
+    <svg class="palm footer__palm footer__palm--r"><use href="#palm" width="100%" height="100%"/></svg>
+    <p class="footer__mahalo">Mahalo</p>
     <p class="footer__closing" data-bind="closing"></p>
     <p class="footer__names"><span data-bind="groom.nameEn"></span> &amp; <span data-bind="bride.nameEn"></span></p>
   </footer>
 </main>
 
-<script src="js/config.js?v=2"></script>
-<script src="js/app.js?v=2"></script>
+<script src="js/config.js?v=3"></script>
+<script src="js/app.js?v=3"></script>
 </body>
 </html>
