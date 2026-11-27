@@ -43,6 +43,8 @@ window.WEDDING_CONFIG = {
     "images/g11.jpg",
     "images/g12.jpg",
     "images/g13.jpg",
+    "images/g14.jpg",
+    "images/g15.jpg",
     "images/photo1.jpg"
   ],
   photoCredits: "",
