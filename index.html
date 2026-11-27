@@ -2,132 +2,147 @@
 <html lang="ja">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data:; connect-src 'self' https://*.supabase.co; frame-src https://www.google.com; base-uri 'none'; form-action 'none'; object-src 'none'">
 <meta name="referrer" content="strict-origin-when-cross-origin">
 <meta name="robots" content="noindex, nofollow">
-<meta name="theme-color" content="#f59a7a">
+<meta name="theme-color" content="#1673c4">
 <title>Wedding Invitation</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Parisienne&family=Cormorant+Garamond:ital,wght@0,500;1,500&family=Zen+Maru+Gothic:wght@400;500;700&display=swap">
-<link rel="stylesheet" href="css/style.css?v=4">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Parisienne&family=Cormorant+Garamond:wght@500;600&family=Zen+Maru+Gothic:wght@400;500;700&display=swap">
+<link rel="stylesheet" href="css/style.css?v=5">
 </head>
 <body class="is-locked">
 
-<!-- ===== 共通で使う絵（オリジナル） ===== -->
+<div class="progress" aria-hidden="true"><span id="progressBar"></span></div>
+
+<!-- 再利用する絵 -->
 <svg class="sprite" aria-hidden="true" focusable="false">
-  <symbol id="palm" viewBox="0 0 200 300">
-    <path d="M90 300 C97 240 105 182 111 122 L121 124 C116 184 110 244 106 300 Z"/>
-    <path d="M116 118 C80 88 40 94 6 124 C42 102 80 106 116 124 Z"/>
-    <path d="M116 118 C150 84 188 90 200 128 C176 102 150 102 118 125 Z"/>
-    <path d="M116 118 C95 70 60 52 26 58 C62 70 90 86 114 121 Z"/>
-    <path d="M116 118 C136 64 170 48 196 58 C166 68 140 86 119 122 Z"/>
-    <path d="M116 118 C110 78 120 40 138 16 C126 50 122 86 120 120 Z"/>
-    <path d="M116 120 C88 122 58 142 42 180 C68 154 94 138 116 126 Z"/>
-    <path d="M118 120 C146 126 172 148 182 184 C160 158 140 142 118 127 Z"/>
-    <circle cx="112" cy="128" r="5"/><circle cx="121" cy="130" r="5"/><circle cx="116" cy="136" r="5"/>
-  </symbol>
-  <symbol id="plumeria" viewBox="-50 -50 100 100">
-    <g class="pl-petals">
-      <path d="M0 0 C16 -4 30 -22 18 -40 C6 -50 -6 -32 0 0 Z"/>
-      <path transform="rotate(72)" d="M0 0 C16 -4 30 -22 18 -40 C6 -50 -6 -32 0 0 Z"/>
-      <path transform="rotate(144)" d="M0 0 C16 -4 30 -22 18 -40 C6 -50 -6 -32 0 0 Z"/>
-      <path transform="rotate(216)" d="M0 0 C16 -4 30 -22 18 -40 C6 -50 -6 -32 0 0 Z"/>
-      <path transform="rotate(288)" d="M0 0 C16 -4 30 -22 18 -40 C6 -50 -6 -32 0 0 Z"/>
+  <defs>
+    <radialGradient id="petalG" cx=".5" cy=".95" r=".95"><stop offset="0" stop-color="#ffcb3d"/><stop offset=".38" stop-color="#fff4cf"/><stop offset="1" stop-color="#ffffff"/></radialGradient>
+  </defs>
+  <symbol id="flower" viewBox="-60 -60 120 120">
+    <g class="fl-petals">
+      <path class="fl-p fl-p1" d="M0 0 C21 -5 36 -31 19 -49 C5 -60 -13 -40 0 0 Z" fill="url(#petalG)"/>
+      <path class="fl-p fl-p2" transform="rotate(72)" d="M0 0 C21 -5 36 -31 19 -49 C5 -60 -13 -40 0 0 Z" fill="url(#petalG)"/>
+      <path class="fl-p fl-p3" transform="rotate(144)" d="M0 0 C21 -5 36 -31 19 -49 C5 -60 -13 -40 0 0 Z" fill="url(#petalG)"/>
+      <path class="fl-p fl-p4" transform="rotate(216)" d="M0 0 C21 -5 36 -31 19 -49 C5 -60 -13 -40 0 0 Z" fill="url(#petalG)"/>
+      <path class="fl-p fl-p5" transform="rotate(288)" d="M0 0 C21 -5 36 -31 19 -49 C5 -60 -13 -40 0 0 Z" fill="url(#petalG)"/>
     </g>
-    <circle class="pl-center" r="9"/>
+    <circle r="7" fill="#ffb81f"/>
   </symbol>
-  <symbol id="wave" viewBox="0 0 1200 80" preserveAspectRatio="none">
-    <path d="M0 40 C150 78 300 2 450 40 C600 78 750 2 900 40 C1050 78 1200 2 1200 40 L1200 80 L0 80 Z"/>
+  <symbol id="wave" viewBox="0 0 1440 80" preserveAspectRatio="none">
+    <path d="M0 42 C120 70 240 70 360 42 C480 14 600 14 720 42 C840 70 960 70 1080 42 C1200 14 1320 14 1440 42 L1440 80 L0 80 Z"/>
   </symbol>
+  <symbol id="i-pin" viewBox="0 0 24 24"><path d="M12 2a7 7 0 0 0-7 7c0 5.2 7 13 7 13s7-7.8 7-13a7 7 0 0 0-7-7Zm0 9.5A2.5 2.5 0 1 1 12 6.5a2.5 2.5 0 0 1 0 5Z"/></symbol>
+  <symbol id="i-cal" viewBox="0 0 24 24"><path d="M7 2v2H5a2 2 0 0 0-2 2v13a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2h-2V2h-2v2H9V2H7Zm12 8v9H5v-9h14Z"/></symbol>
+  <symbol id="i-shirt" viewBox="0 0 24 24"><path d="M8 3 3 6l2 5 2-1v11h10V10l2 1 2-5-5-3c-.6 1.6-2.2 2.7-4 2.7S8.6 4.6 8 3Z"/></symbol>
+  <symbol id="i-kid" viewBox="0 0 24 24"><circle cx="12" cy="5" r="3"/><path d="M8 10h8l-1 6h-2v6h-2v-6H9l-1-6Z"/></symbol>
+  <symbol id="i-car" viewBox="0 0 24 24"><path d="M5 11 6.6 6.4A2 2 0 0 1 8.5 5h7a2 2 0 0 1 1.9 1.4L19 11h1v6h-2v2h-2v-2H8v2H6v-2H4v-6h1Zm2.2 0h9.6l-1.2-3.6H8.4L7.2 11ZM7 15a1.3 1.3 0 1 0 0-2.6A1.3 1.3 0 0 0 7 15Zm10 0a1.3 1.3 0 1 0 0-2.6 1.3 1.3 0 0 0 0 2.6Z"/></symbol>
 </svg>
 
-<!-- ===== オープニング：夕日と海 ===== -->
+<!-- ===== オープニング ===== -->
 <div class="opening" id="opening">
-  <div class="opening__sky"></div>
-  <div class="opening__sun"></div>
-  <div class="opening__sea">
-    <svg class="wave wave--a" preserveAspectRatio="none"><use href="#wave" width="100%" height="100%"/></svg>
-    <svg class="wave wave--b" preserveAspectRatio="none"><use href="#wave" width="100%" height="100%"/></svg>
-  </div>
-  <svg class="palm palm--l"><use href="#palm" width="100%" height="100%"/></svg>
-  <svg class="palm palm--r"><use href="#palm" width="100%" height="100%"/></svg>
-  <div class="opening__card">
-    <p class="opening__aloha">Aloha</p>
+  <div class="opening__bg"></div>
+  <div class="opening__petals" aria-hidden="true"></div>
+  <div class="opening__inner">
+    <svg class="opening__flower" aria-hidden="true"><use href="#flower" width="100%" height="100%"/></svg>
+    <p class="opening__aloha"><span>Aloha</span></p>
     <p class="opening__lead">結婚式のご案内</p>
     <p class="opening__names" data-bind="signature"></p>
-    <button type="button" class="pill-btn" id="openBtn">招待状をひらく</button>
+    <button type="button" class="btn btn--primary btn--pulse" id="openBtn">招待状をひらく</button>
   </div>
 </div>
 
-<main>
+<main id="main">
 
   <!-- ===== メインビジュアル ===== -->
   <header class="hero" id="top">
-    <div class="hero__photo" data-bg="heroPhoto" role="img" aria-label="お二人の写真"></div>
-    <div class="hero__glow"></div>
-    <svg class="palm hero__palm"><use href="#palm" width="100%" height="100%"/></svg>
+    <div class="hero__art">
+<svg class="scene" viewBox="0 0 1600 1000" preserveAspectRatio="xMidYMax slice" aria-hidden="true" focusable="false"><defs>
+<linearGradient id="sky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#1673c4"/><stop offset=".55" stop-color="#4aa6ea"/><stop offset="1" stop-color="#bfe3fa"/></linearGradient>
+<linearGradient id="sea" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#43c1d6"/><stop offset="1" stop-color="#1597b8"/></linearGradient>
+<linearGradient id="lawn" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#86c24b"/><stop offset="1" stop-color="#5d9f34"/></linearGradient>
+<linearGradient id="glass" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#d8eefb"/><stop offset="1" stop-color="#8fc6e6"/></linearGradient>
+<radialGradient id="petal" cx=".5" cy=".9" r=".9"><stop offset="0" stop-color="#ffd257"/><stop offset=".35" stop-color="#fff6d8"/><stop offset="1" stop-color="#ffffff"/></radialGradient>
+<radialGradient id="sunGlow" cx=".5" cy=".5" r=".5"><stop offset="0" stop-color="#fffbe8"/><stop offset=".35" stop-color="#fff3c2" stop-opacity=".95"/><stop offset="1" stop-color="#fff3c2" stop-opacity="0"/></radialGradient>
+</defs><rect width="1600" height="1000" fill="url(#sky)"/><g class="sun" transform="translate(1320 150)"><g class="sun__rays"><path d="M-14 -96 L0 -250 L14 -96 Z" transform="rotate(0)" fill="rgba(255,250,220,.16)"/><path d="M-14 -96 L0 -250 L14 -96 Z" transform="rotate(30)" fill="rgba(255,250,220,.16)"/><path d="M-14 -96 L0 -250 L14 -96 Z" transform="rotate(60)" fill="rgba(255,250,220,.16)"/><path d="M-14 -96 L0 -250 L14 -96 Z" transform="rotate(90)" fill="rgba(255,250,220,.16)"/><path d="M-14 -96 L0 -250 L14 -96 Z" transform="rotate(120)" fill="rgba(255,250,220,.16)"/><path d="M-14 -96 L0 -250 L14 -96 Z" transform="rotate(150)" fill="rgba(255,250,220,.16)"/><path d="M-14 -96 L0 -250 L14 -96 Z" transform="rotate(180)" fill="rgba(255,250,220,.16)"/><path d="M-14 -96 L0 -250 L14 -96 Z" transform="rotate(210)" fill="rgba(255,250,220,.16)"/><path d="M-14 -96 L0 -250 L14 -96 Z" transform="rotate(240)" fill="rgba(255,250,220,.16)"/><path d="M-14 -96 L0 -250 L14 -96 Z" transform="rotate(270)" fill="rgba(255,250,220,.16)"/><path d="M-14 -96 L0 -250 L14 -96 Z" transform="rotate(300)" fill="rgba(255,250,220,.16)"/><path d="M-14 -96 L0 -250 L14 -96 Z" transform="rotate(330)" fill="rgba(255,250,220,.16)"/></g><circle r="150" fill="url(#sunGlow)"/><circle r="54" fill="#fffbea"/></g><g class="layer layer--clouds-far"><g class="cloud cloud--a"><g fill="#d6e9f7"><circle cx="218.6" cy="180.1" r="20.7"/><circle cx="239.3" cy="164" r="27.6"/><circle cx="264.6" cy="156.2" r="33.1"/><circle cx="289.9" cy="167.2" r="25.3"/><circle cx="308.3" cy="181" r="17.5"/><rect x="200.2" y="175.5" width="126.5" height="23" rx="11.5"/></g><g fill="#ffffff"><circle cx="218.6" cy="174.6" r="20.7"/><circle cx="239.3" cy="158.5" r="27.6"/><circle cx="264.6" cy="150.7" r="33.1"/><circle cx="289.9" cy="161.7" r="25.3"/><circle cx="308.3" cy="175.5" r="17.5"/><rect x="200.2" y="170" width="126.5" height="23" rx="11.5"/></g></g><g class="cloud cloud--b"><g fill="#d6e9f7"><circle cx="945.8" cy="128.4" r="17.1"/><circle cx="962.9" cy="115.1" r="22.8"/><circle cx="983.8" cy="108.6" r="27.4"/><circle cx="1004.7" cy="117.7" r="20.9"/><circle cx="1019.9" cy="129.1" r="14.4"/><rect x="930.6" y="124.6" width="104.5" height="19" rx="9.5"/></g><g fill="#ffffff"><circle cx="945.8" cy="123.8" r="17.1"/><circle cx="962.9" cy="110.5" r="22.8"/><circle cx="983.8" cy="104" r="27.4"/><circle cx="1004.7" cy="113.2" r="20.9"/><circle cx="1019.9" cy="124.6" r="14.4"/><rect x="930.6" y="120" width="104.5" height="19" rx="9.5"/></g></g><g class="cloud cloud--c"><g fill="#d6e9f7"><circle cx="1419.4" cy="307.5" r="15.3"/><circle cx="1434.7" cy="295.6" r="20.4"/><circle cx="1453.4" cy="289.8" r="24.5"/><circle cx="1472.1" cy="298" r="18.7"/><circle cx="1485.7" cy="308.2" r="12.9"/><rect x="1405.8" y="304.1" width="93.5" height="17" rx="8.5"/></g><g fill="#ffffff"><circle cx="1419.4" cy="303.4" r="15.3"/><circle cx="1434.7" cy="291.5" r="20.4"/><circle cx="1453.4" cy="285.7" r="24.5"/><circle cx="1472.1" cy="293.9" r="18.7"/><circle cx="1485.7" cy="304.1" r="12.9"/><rect x="1405.8" y="300" width="93.5" height="17" rx="8.5"/></g></g></g><g class="layer layer--clouds-near"><g class="cloud cloud--d"><g fill="#d6e9f7"><circle cx="497" cy="265.4" r="31.5"/><circle cx="528.5" cy="240.9" r="42"/><circle cx="567" cy="229" r="50.4"/><circle cx="605.5" cy="245.8" r="38.5"/><circle cx="633.5" cy="266.8" r="26.6"/><rect x="469" y="258.4" width="192.5" height="35" rx="17.5"/></g><g fill="#ffffff"><circle cx="497" cy="257" r="31.5"/><circle cx="528.5" cy="232.5" r="42"/><circle cx="567" cy="220.6" r="50.4"/><circle cx="605.5" cy="237.4" r="38.5"/><circle cx="633.5" cy="258.4" r="26.6"/><rect x="469" y="250" width="192.5" height="35" rx="17.5"/></g></g><g class="cloud cloud--e"><g fill="#d6e9f7"><circle cx="1129.6" cy="392.3" r="25.2"/><circle cx="1154.8" cy="372.7" r="33.6"/><circle cx="1185.6" cy="363.2" r="40.3"/><circle cx="1216.4" cy="376.6" r="30.8"/><circle cx="1238.8" cy="393.4" r="21.3"/><rect x="1107.2" y="386.7" width="154" height="28" rx="14"/></g><g fill="#ffffff"><circle cx="1129.6" cy="385.6" r="25.2"/><circle cx="1154.8" cy="366" r="33.6"/><circle cx="1185.6" cy="356.5" r="40.3"/><circle cx="1216.4" cy="369.9" r="30.8"/><circle cx="1238.8" cy="386.7" r="21.3"/><rect x="1107.2" y="380" width="154" height="28" rx="14"/></g></g></g><g class="birds"><path class="bird bird--0" d="M0 0 q9 -9 18 0 q9 -9 18 0" transform="translate(300 330) scale(0.9)" fill="none" stroke="#17323a" stroke-width="2.4" stroke-linecap="round"/><path class="bird bird--1" d="M0 0 q9 -9 18 0 q9 -9 18 0" transform="translate(345 310) scale(0.7)" fill="none" stroke="#17323a" stroke-width="2.4" stroke-linecap="round"/><path class="bird bird--2" d="M0 0 q9 -9 18 0 q9 -9 18 0" transform="translate(380 345) scale(0.6)" fill="none" stroke="#17323a" stroke-width="2.4" stroke-linecap="round"/></g><g class="layer layer--sea"><rect x="0" y="600" width="1600" height="200" fill="url(#sea)"/><path d="M1020 604 C1060 560 1110 548 1150 556 C1190 520 1250 520 1290 552 C1330 548 1380 570 1420 604 Z" fill="#7fa9a3"/><path class="shimmer shimmer--0" d="M487 690 h99" stroke="rgba(255,255,255,.55)" stroke-width="2" stroke-linecap="round"/><path class="shimmer shimmer--1" d="M267 662 h107" stroke="rgba(255,255,255,.55)" stroke-width="2" stroke-linecap="round"/><path class="shimmer shimmer--2" d="M970 689 h38" stroke="rgba(255,255,255,.55)" stroke-width="2" stroke-linecap="round"/><path class="shimmer shimmer--0" d="M1240 616 h90" stroke="rgba(255,255,255,.55)" stroke-width="2" stroke-linecap="round"/><path class="shimmer shimmer--1" d="M531 685 h59" stroke="rgba(255,255,255,.55)" stroke-width="2" stroke-linecap="round"/><path class="shimmer shimmer--2" d="M392 675 h99" stroke="rgba(255,255,255,.55)" stroke-width="2" stroke-linecap="round"/><path class="shimmer shimmer--0" d="M1125 675 h80" stroke="rgba(255,255,255,.55)" stroke-width="2" stroke-linecap="round"/><path class="shimmer shimmer--1" d="M1308 634 h59" stroke="rgba(255,255,255,.55)" stroke-width="2" stroke-linecap="round"/><path class="shimmer shimmer--2" d="M1300 634 h96" stroke="rgba(255,255,255,.55)" stroke-width="2" stroke-linecap="round"/><path class="shimmer shimmer--0" d="M798 616 h38" stroke="rgba(255,255,255,.55)" stroke-width="2" stroke-linecap="round"/><path class="shimmer shimmer--1" d="M326 690 h35" stroke="rgba(255,255,255,.55)" stroke-width="2" stroke-linecap="round"/><path class="shimmer shimmer--2" d="M616 618 h64" stroke="rgba(255,255,255,.55)" stroke-width="2" stroke-linecap="round"/><path class="shimmer shimmer--0" d="M968 664 h84" stroke="rgba(255,255,255,.55)" stroke-width="2" stroke-linecap="round"/><path class="shimmer shimmer--1" d="M808 688 h86" stroke="rgba(255,255,255,.55)" stroke-width="2" stroke-linecap="round"/><path class="shimmer shimmer--2" d="M274 661 h42" stroke="rgba(255,255,255,.55)" stroke-width="2" stroke-linecap="round"/><path class="shimmer shimmer--0" d="M73 632 h93" stroke="rgba(255,255,255,.55)" stroke-width="2" stroke-linecap="round"/><path class="shimmer shimmer--1" d="M444 648 h85" stroke="rgba(255,255,255,.55)" stroke-width="2" stroke-linecap="round"/><path class="shimmer shimmer--2" d="M1283 653 h83" stroke="rgba(255,255,255,.55)" stroke-width="2" stroke-linecap="round"/><path class="shimmer shimmer--0" d="M1038 664 h103" stroke="rgba(255,255,255,.55)" stroke-width="2" stroke-linecap="round"/><path class="shimmer shimmer--1" d="M718 683 h104" stroke="rgba(255,255,255,.55)" stroke-width="2" stroke-linecap="round"/><path class="shimmer shimmer--2" d="M834 689 h59" stroke="rgba(255,255,255,.55)" stroke-width="2" stroke-linecap="round"/><path class="shimmer shimmer--0" d="M689 618 h65" stroke="rgba(255,255,255,.55)" stroke-width="2" stroke-linecap="round"/><path class="shimmer shimmer--1" d="M1240 635 h71" stroke="rgba(255,255,255,.55)" stroke-width="2" stroke-linecap="round"/><path class="shimmer shimmer--2" d="M1109 688 h102" stroke="rgba(255,255,255,.55)" stroke-width="2" stroke-linecap="round"/><path class="shimmer shimmer--0" d="M213 642 h103" stroke="rgba(255,255,255,.55)" stroke-width="2" stroke-linecap="round"/><path class="shimmer shimmer--1" d="M546 651 h45" stroke="rgba(255,255,255,.55)" stroke-width="2" stroke-linecap="round"/></g><g class="layer layer--ridge"><path class="" d="M0 1000 L0 650 C133.3 650 133.3 610 266.7 610 C400 610 400 640 533.3 640 C666.7 640 666.7 580 800 580 C933.3 580 933.3 620 1066.7 620 C1200 620 1200 660 1333.3 660 C1466.7 660 1466.7 630 1600 630 L1600 1000 Z" fill="#5f9c6b"/></g><g class="layer layer--ridge2"><path class="" d="M0 1000 L0 730 C160 730 160 690 320 690 C480 690 480 720 640 720 C800 720 800 670 960 670 C1120 670 1120 700 1280 700 C1440 700 1440 730 1600 730 L1600 1000 Z" fill="#3f7f4f"/></g><g class="layer layer--trees"><g class="tree tree--1"><path d="M147.6 900 C156.6 644 158.6 548 159.5 452 L170.7 452 C176.5 548 183.4 644 192.4 900 Z" fill="#e6dccb"/><path d="M174.5 900 C176.7 644 169.8 548 170.7 452 L170.7 452 C176.5 548 183.4 644 192.4 900 Z" fill="#c9bba3"/><path d="M167.3 528.8 Q219.2 496.8 271.1 439.2" stroke="#e6dccb" stroke-width="12.3" fill="none" stroke-linecap="round"/><path d="M166.8 490.4 Q105.7 458.4 44.7 400.8" stroke="#e6dccb" stroke-width="12.3" fill="none" stroke-linecap="round"/><path d="M166.3 452 Q215.9 420 265.4 362.4" stroke="#e6dccb" stroke-width="12.3" fill="none" stroke-linecap="round"/><g fill="#2f6b3a"><circle cx="26.3" cy="381.5" r="86.8"/><circle cx="16" cy="333.4" r="88.7"/><circle cx="42.1" cy="294.2" r="79.9"/><circle cx="318.4" cy="404.6" r="69"/><circle cx="368.7" cy="323.3" r="93.1"/><circle cx="200.9" cy="426.4" r="69.7"/><circle cx="201.3" cy="384.6" r="86.7"/><circle cx="-8.8" cy="375.5" r="94.1"/><circle cx="4.7" cy="336.9" r="78.9"/><circle cx="374.5" cy="334.7" r="96.9"/><circle cx="126.5" cy="410.5" r="70.1"/><circle cx="177.6" cy="194.7" r="83.4"/><circle cx="346.2" cy="324.3" r="76"/><circle cx="276.8" cy="252.5" r="83.9"/><circle cx="304.6" cy="396.7" r="78.5"/><circle cx="260.7" cy="418" r="99"/></g><g fill="#4c8f43"><circle cx="212.5" cy="350.4" r="57.2"/><circle cx="173.8" cy="230.8" r="70.5"/><circle cx="203.5" cy="365.5" r="77.3"/><circle cx="228.7" cy="357" r="64.4"/><circle cx="298.6" cy="305.4" r="85.6"/><circle cx="176.8" cy="431.9" r="77.2"/><circle cx="290.6" cy="352.3" r="64"/><circle cx="165.5" cy="251.7" r="57.6"/><circle cx="255.4" cy="350.7" r="75.8"/><circle cx="78.9" cy="409.6" r="71.8"/><circle cx="13.2" cy="292.2" r="60.4"/><circle cx="278.6" cy="283.7" r="61.6"/><circle cx="141.6" cy="260.3" r="87.8"/><circle cx="244.4" cy="264.9" r="58.7"/></g><g fill="#7cb653"><circle cx="249.1" cy="301.9" r="53.2"/><circle cx="135.5" cy="355.1" r="43.7"/><circle cx="181.9" cy="319.3" r="42.2"/><circle cx="43.5" cy="268.6" r="43.4"/><circle cx="184.3" cy="278.4" r="43.2"/><circle cx="102.7" cy="304.5" r="45.5"/><circle cx="99.2" cy="270.7" r="57.5"/><circle cx="227" cy="283.6" r="50.5"/><circle cx="163.8" cy="313.2" r="58"/></g></g><g class="tree tree--2"><path d="M413.6 860 C420.1 672 422.5 601.5 424 531 L432.2 531 C435.6 601.5 439.9 672 446.4 860 Z" fill="#e6dccb"/><path d="M433.3 860 C434.9 672 430.7 601.5 432.2 531 L432.2 531 C435.6 601.5 439.9 672 446.4 860 Z" fill="#c9bba3"/><path d="M428.9 587.4 Q467.8 563.9 506.6 521.6" stroke="#e6dccb" stroke-width="9" fill="none" stroke-linecap="round"/><path d="M428.8 559.2 Q389.8 535.7 350.8 493.4" stroke="#e6dccb" stroke-width="9" fill="none" stroke-linecap="round"/><path d="M428.6 531 Q458.1 507.5 487.7 465.2" stroke="#e6dccb" stroke-width="9" fill="none" stroke-linecap="round"/><g fill="#2f6b3a"><circle cx="315.5" cy="460.7" r="52.3"/><circle cx="512.2" cy="450.3" r="72.3"/><circle cx="388.6" cy="370.8" r="67.8"/><circle cx="483.9" cy="484.9" r="75.2"/><circle cx="550.2" cy="461.4" r="68.6"/><circle cx="382.6" cy="535.7" r="48.6"/><circle cx="559" cy="475.1" r="50.7"/><circle cx="572" cy="442.8" r="60.7"/><circle cx="479.5" cy="511.2" r="52.9"/><circle cx="411.6" cy="399.8" r="72.5"/><circle cx="355.9" cy="495.7" r="62.3"/><circle cx="392" cy="509.4" r="77"/><circle cx="541.5" cy="436.8" r="58.9"/><circle cx="385.6" cy="404.9" r="55"/><circle cx="363.6" cy="523.5" r="63"/><circle cx="557.4" cy="458.8" r="63.6"/></g><g fill="#4c8f43"><circle cx="431.9" cy="486.6" r="58.3"/><circle cx="486.4" cy="456.9" r="56.5"/><circle cx="478.2" cy="444.3" r="55"/><circle cx="491.5" cy="446.1" r="46.3"/><circle cx="301" cy="441.4" r="62.9"/><circle cx="476.8" cy="478.8" r="44"/><circle cx="418" cy="402.9" r="46"/><circle cx="427.7" cy="387.5" r="39.6"/><circle cx="506.5" cy="456" r="63.9"/><circle cx="380.1" cy="431.2" r="58.7"/><circle cx="464.4" cy="393.7" r="52.3"/><circle cx="329.1" cy="438.9" r="62.6"/><circle cx="459.1" cy="402.4" r="60.8"/><circle cx="398.2" cy="494.9" r="56.5"/></g><g fill="#7cb653"><circle cx="399.7" cy="382.5" r="30.6"/><circle cx="383.7" cy="390.3" r="41"/><circle cx="376.2" cy="432.3" r="42.6"/><circle cx="353.5" cy="391.1" r="42.3"/><circle cx="413.3" cy="367.6" r="41.3"/><circle cx="424.3" cy="379.5" r="32.5"/><circle cx="405" cy="393.4" r="38.1"/><circle cx="468.4" cy="379.4" r="41.4"/><circle cx="341.5" cy="405.5" r="28"/></g></g><g class="tree tree--3"><path d="M1521.8 880 C1529.1 672 1522.7 594 1515.4 516 L1524.5 516 C1537.3 594 1550.9 672 1558.2 880 Z" fill="#e6dccb"/><path d="M1543.6 880 C1545.5 672 1531.8 594 1524.5 516 L1524.5 516 C1537.3 594 1550.9 672 1558.2 880 Z" fill="#c9bba3"/><path d="M1529 578.4 Q1568.3 552.4 1607.6 505.6" stroke="#e6dccb" stroke-width="10" fill="none" stroke-linecap="round"/><path d="M1527 547.2 Q1487.7 521.2 1448.3 474.4" stroke="#e6dccb" stroke-width="10" fill="none" stroke-linecap="round"/><path d="M1525 516 Q1567.3 490 1609.5 443.2" stroke="#e6dccb" stroke-width="10" fill="none" stroke-linecap="round"/><g fill="#2f6b3a"><circle cx="1513.3" cy="523.5" r="73.5"/><circle cx="1547.1" cy="470.6" r="54.8"/><circle cx="1514.1" cy="335.5" r="54.4"/><circle cx="1494.9" cy="533.1" r="66.3"/><circle cx="1593.6" cy="427.1" r="74.1"/><circle cx="1567.5" cy="316.2" r="70.3"/><circle cx="1641.8" cy="402.9" r="73.5"/><circle cx="1396.1" cy="429.9" r="60.9"/><circle cx="1460.7" cy="473.3" r="51.5"/><circle cx="1574.5" cy="305.8" r="68.7"/><circle cx="1403.5" cy="405.3" r="68.3"/><circle cx="1460.4" cy="442.4" r="63.7"/><circle cx="1518" cy="516.5" r="59.9"/><circle cx="1585.7" cy="466.7" r="55.1"/><circle cx="1548.5" cy="465.3" r="67.5"/><circle cx="1602.3" cy="392.4" r="76"/></g><g fill="#4c8f43"><circle cx="1558.3" cy="431.5" r="60"/><circle cx="1478.4" cy="358.6" r="60.7"/><circle cx="1591" cy="375.9" r="60.4"/><circle cx="1441.3" cy="436.7" r="63.3"/><circle cx="1432.1" cy="377.9" r="54.5"/><circle cx="1434.2" cy="378.2" r="57.3"/><circle cx="1477.1" cy="444" r="56.2"/><circle cx="1553.8" cy="430.9" r="55.2"/><circle cx="1432.4" cy="394.7" r="50.2"/><circle cx="1486.2" cy="433.7" r="63.9"/><circle cx="1556.4" cy="442.8" r="54.1"/><circle cx="1579.3" cy="434.5" r="59.9"/><circle cx="1576.6" cy="409.3" r="63.2"/><circle cx="1433.6" cy="398.2" r="46.7"/></g><g fill="#7cb653"><circle cx="1554.6" cy="399.3" r="38.6"/><circle cx="1498.6" cy="449.9" r="30.7"/><circle cx="1463.4" cy="368.3" r="31.1"/><circle cx="1514.8" cy="408.4" r="33"/><circle cx="1560.5" cy="412.7" r="26.5"/><circle cx="1507.3" cy="341" r="35.6"/><circle cx="1481.3" cy="423.5" r="28.7"/><circle cx="1522.4" cy="338.6" r="30"/><circle cx="1486.4" cy="407.8" r="28.5"/></g></g><g class="palm palm--hero" fill="#1f4a33"><path d="M1179.9 845 Q1192.1 614 1227.4 425 L1236.6 425 Q1205.5 614 1200.1 845 Z"/><path d="M1182 806.8 q9.3 2.9 18.6 0" stroke="rgba(255,255,255,.14)" stroke-width="1.3" fill="none"/><path d="M1184 769.2 q8.9 2.9 17.8 0" stroke="rgba(255,255,255,.14)" stroke-width="1.3" fill="none"/><path d="M1186.5 732.1 q8.5 2.9 17 0" stroke="rgba(255,255,255,.14)" stroke-width="1.3" fill="none"/><path d="M1189.3 695.7 q8.1 2.9 16.2 0" stroke="rgba(255,255,255,.14)" stroke-width="1.3" fill="none"/><path d="M1192.6 659.8 q7.7 2.9 15.5 0" stroke="rgba(255,255,255,.14)" stroke-width="1.3" fill="none"/><path d="M1196.3 624.5 q7.4 2.9 14.7 0" stroke="rgba(255,255,255,.14)" stroke-width="1.3" fill="none"/><path d="M1200.4 589.8 q7 2.9 13.9 0" stroke="rgba(255,255,255,.14)" stroke-width="1.3" fill="none"/><path d="M1204.9 555.7 q6.6 2.9 13.2 0" stroke="rgba(255,255,255,.14)" stroke-width="1.3" fill="none"/><path d="M1209.8 522.1 q6.2 2.9 12.4 0" stroke="rgba(255,255,255,.14)" stroke-width="1.3" fill="none"/><path d="M1215.1 489.2 q5.8 2.9 11.6 0" stroke="rgba(255,255,255,.14)" stroke-width="1.3" fill="none"/><path d="M1220.8 456.8 q5.4 2.9 10.8 0" stroke="rgba(255,255,255,.14)" stroke-width="1.3" fill="none"/><g class="palm__fronds"><path d="M1232 425 Q1120.8 396.5 1029.9 528.3" stroke="#1f4a33" stroke-width="6.9" fill="none" stroke-linecap="round"/><path d="M1206.1 420.5 Q1192 409.2 1184.8 400.7 M1206.1 420.5 Q1195.3 431.6 1191.4 445.6 M1193.4 419.9 Q1172.7 406.3 1161.5 396.6 M1193.4 419.9 Q1179.8 435.6 1175.7 455.2 M1180.8 420.4 Q1153.8 405.9 1138.5 396.3 M1180.8 420.4 Q1165.5 440.4 1161.9 465.3 M1168.4 422.1 Q1135.9 408 1116.8 399.6 M1168.4 422.1 Q1152.5 445.8 1149.9 475.2 M1156.1 424.8 Q1119.4 412.3 1097 406.1 M1156.1 424.8 Q1140.6 451.6 1139.6 484.6 M1143.9 428.7 Q1104.5 418.5 1079.8 414.9 M1143.9 428.7 Q1129.8 457.5 1130.5 492.8 M1131.9 433.7 Q1091.4 426.2 1065.5 425.5 M1131.9 433.7 Q1119.7 463.4 1122.2 499.8 M1120 439.7 Q1080.1 435.1 1054.1 437 M1120 439.7 Q1110.2 469.3 1114.2 505.4 M1108.2 446.9 Q1070.6 444.8 1045.5 449 M1108.2 446.9 Q1100.9 475.2 1106.1 509.7 M1096.6 455.2 Q1062.5 455.2 1039.4 461 M1096.6 455.2 Q1091.6 481.1 1097.5 512.7 M1085.1 464.6 Q1055.8 466.1 1035.5 472.7 M1085.1 464.6 Q1082.2 487.2 1088.3 514.8 M1073.8 475.1 Q1050.1 477.5 1033.4 484 M1073.8 475.1 Q1072.4 493.6 1078.2 516.3 M1062.6 486.8 Q1045.1 489.3 1032.5 494.9 M1062.6 486.8 Q1062.3 500.6 1067.1 517.6 M1051.6 499.5 Q1040.5 501.5 1032.5 505.6 M1051.6 499.5 Q1051.8 508.3 1055.2 519.2 M1040.7 513.3 Q1036.2 514.4 1032.8 516.2 M1040.7 513.3 Q1041 517 1042.4 521.5" stroke="#1f4a33" stroke-width="4.6" fill="none" stroke-linecap="round"/><path d="M1232 425 Q1141.7 334.7 1067.9 480.7" stroke="#1f4a33" stroke-width="6.9" fill="none" stroke-linecap="round"/><path d="M1211 407 Q1207.9 391.9 1210.3 379.4 M1211 407 Q1197.2 413.8 1188.7 423.3 M1200.7 400.5 Q1193 380.2 1193.2 363.8 M1200.7 400.5 Q1182.6 410.9 1172.4 425.1 M1190.4 395.6 Q1176.4 372 1172.6 353 M1190.4 395.6 Q1169.5 410.1 1158.8 429.2 M1180.3 392.3 Q1158.8 367.8 1149.7 348.6 M1180.3 392.3 Q1158.1 411 1148.3 434.9 M1170.3 390.7 Q1141.6 368 1126.9 351.2 M1170.3 390.7 Q1148.6 413.1 1140.9 441.5 M1160.5 390.7 Q1126.1 372.1 1106.6 359.7 M1160.5 390.7 Q1140.9 416.2 1136.2 447.8 M1150.7 392.3 Q1113.3 379 1090.6 372 M1150.7 392.3 Q1134.5 419.6 1133.1 453.2 M1141 395.6 Q1103.2 387.7 1079.3 386 M1141 395.6 Q1128.9 423.3 1130.7 457.2 M1131.5 400.5 Q1095.6 397.3 1072 400 M1131.5 400.5 Q1123.5 427.2 1127.6 459.9 M1122.1 407.1 Q1089.9 407.4 1067.9 413.1 M1122.1 407.1 Q1117.6 431.6 1123.4 461.5 M1112.8 415.2 Q1085.4 417.8 1066.2 425.2 M1112.8 415.2 Q1111.1 436.6 1117.6 462.6 M1103.6 425.1 Q1081.7 428.7 1066 436.3 M1103.6 425.1 Q1103.7 442.4 1110 463.7 M1094.5 436.5 Q1078.6 440.2 1066.8 446.9 M1094.5 436.5 Q1095.6 449.4 1101 465.3 M1085.5 449.6 Q1075.6 452.5 1068.2 457.2 M1085.5 449.6 Q1086.8 457.8 1090.5 467.9 M1076.6 464.3 Q1072.6 465.7 1069.6 467.8 M1076.6 464.3 Q1077.4 467.7 1079 471.9" stroke="#1f4a33" stroke-width="4.6" fill="none" stroke-linecap="round"/><path d="M1232 425 Q1157.2 290.4 1096 460.7" stroke="#1f4a33" stroke-width="6.9" fill="none" stroke-linecap="round"/><path d="M1214.6 397.5 Q1219.2 382.8 1228.2 371 M1214.6 397.5 Q1198.5 401.4 1186.7 408.2 M1206 387 Q1209.3 365.8 1219.1 348.6 M1206 387 Q1184.5 393.7 1169.4 404.4 M1197.6 378.5 Q1196.6 351.3 1204.6 329.1 M1197.6 378.5 Q1171.7 389 1154.9 404.4 M1189.2 372.2 Q1180.2 340.6 1183 314.8 M1189.2 372.2 Q1160.7 387.3 1144 408.1 M1180.9 368 Q1160.9 335.7 1155.1 309.9 M1180.9 368 Q1152.3 388.2 1137.9 414.7 M1172.7 365.8 Q1141.4 338.3 1126.1 317.4 M1172.7 365.8 Q1146.8 390.9 1136.9 422.7 M1164.6 365.8 Q1125.8 347 1103.3 335 M1164.6 365.8 Q1144.1 394.4 1139.9 429.9 M1156.6 367.9 Q1115.8 358.5 1090.1 355.7 M1156.6 367.9 Q1142.8 397.8 1144.1 434.4 M1148.7 372.1 Q1110.1 370.1 1084.3 374.6 M1148.7 372.1 Q1141.3 401.1 1146.7 436.5 M1140.9 378.5 Q1106.9 381.4 1083.1 390.2 M1140.9 378.5 Q1138.5 404.9 1146.3 437.2 M1133.2 386.9 Q1104.8 392.4 1084.2 403 M1133.2 386.9 Q1134.1 409.6 1142.8 437.5 M1125.6 397.4 Q1103.3 403.7 1086.6 414.2 M1125.6 397.4 Q1128.3 415.8 1136.5 438.4 M1118 410.1 Q1102 415.8 1089.6 424.7 M1118 410.1 Q1121.2 423.7 1128.1 440.4 M1110.6 424.9 Q1100.7 429 1092.9 435.2 M1110.6 424.9 Q1113.2 433.4 1117.9 444 M1103.3 441.7 Q1099.3 443.6 1096.1 446.3 M1103.3 441.7 Q1104.5 445.2 1106.6 449.6" stroke="#1f4a33" stroke-width="4.6" fill="none" stroke-linecap="round"/><path d="M1232 425 Q1211.8 266.8 1195.3 378.3" stroke="#1f4a33" stroke-width="6.9" fill="none" stroke-linecap="round"/><path d="M1227.3 391.5 Q1239.4 384.2 1252.5 379.6 M1227.3 391.5 Q1212.9 388.8 1199.6 388.9 M1225 377.6 Q1241.1 367.2 1258.8 360.6 M1225 377.6 Q1205.4 374.3 1187.3 374.8 M1222.7 365.5 Q1242 352 1263.6 343.3 M1222.7 365.5 Q1198.3 362.1 1176.2 363.3 M1220.4 355.3 Q1242 338.7 1266.5 327.5 M1220.4 355.3 Q1192 352.3 1166.7 354.8 M1218.2 346.9 Q1240.4 327 1266.7 312.9 M1218.2 346.9 Q1186.6 345.2 1159 349.5 M1216 340.4 Q1236.7 316.5 1262.9 298.9 M1216 340.4 Q1182.1 341.3 1153.8 348.4 M1213.8 335.8 Q1228.7 306.7 1251.4 284 M1213.8 335.8 Q1179.1 341.2 1152.2 353 M1211.6 333.1 Q1209.3 298.6 1218.6 270.4 M1211.6 333.1 Q1179.2 346.7 1158.2 366.6 M1209.5 332.2 Q1177.5 312.3 1159.8 298.5 M1209.5 332.2 Q1189.4 356.3 1183.7 386.4 M1207.4 333.2 Q1175.5 335.4 1153.3 343.2 M1207.4 333.2 Q1204.7 357.8 1211.7 388 M1205.3 336 Q1181.2 344.6 1162.6 357.9 M1205.3 336 Q1210.1 356.4 1220.4 381.7 M1203.3 340.7 Q1185.3 350 1170.6 363.1 M1203.3 340.7 Q1209.9 356.7 1219.8 376.7 M1201.2 347.3 Q1188.6 355.1 1177.9 365.8 M1201.2 347.3 Q1207.4 358.9 1215.4 373.5 M1199.2 355.8 Q1191.5 361.1 1184.7 368.3 M1199.2 355.8 Q1203.6 363.1 1209 372.2 M1197.2 366.1 Q1194.1 368.4 1191.4 371.5 M1197.2 366.1 Q1199.2 369.1 1201.5 372.8" stroke="#1f4a33" stroke-width="4.6" fill="none" stroke-linecap="round"/><path d="M1232 425 Q1249.3 277.8 1263.4 381.4" stroke="#1f4a33" stroke-width="6.9" fill="none" stroke-linecap="round"/><path d="M1236 393.8 Q1249.3 391.2 1261.7 391.1 M1236 393.8 Q1224.7 387.2 1212.5 383.2 M1238 380.8 Q1256.1 377.6 1272.9 377.8 M1238 380.8 Q1222.9 371.5 1206.4 365.7 M1240 369.6 Q1262.5 366.1 1283.1 366.9 M1240 369.6 Q1221.7 357.5 1201.6 349.8 M1241.9 360.1 Q1268.1 356.9 1291.8 358.7 M1241.9 360.1 Q1221.5 345.2 1198.5 335.3 M1243.8 352.3 Q1273 350.2 1298.8 353.5 M1243.8 352.3 Q1222.6 334.5 1197.9 322.1 M1245.7 346.3 Q1277 346.3 1303.6 352.1 M1245.7 346.3 Q1225.6 325 1200.7 309.4 M1247.6 342 Q1279.8 346 1305.2 356 M1247.6 342 Q1232.3 316 1210.2 295.9 M1249.4 339.4 Q1279.9 351.1 1300.1 368.7 M1249.4 339.4 Q1249.3 307.7 1238.9 281.8 M1251.2 338.6 Q1270 360.9 1275.3 388.8 M1251.2 338.6 Q1280.9 320.1 1297.2 307.1 M1253 339.5 Q1254.6 362.3 1247.5 390.2 M1253 339.5 Q1282.3 342.5 1302.8 350.6 M1254.8 342.1 Q1249.7 360.9 1239.8 384.1 M1254.8 342.1 Q1276.8 350.6 1293.9 363.6 M1256.6 346.5 Q1250 361.2 1240.6 379.6 M1256.6 346.5 Q1272.9 355.4 1286.4 367.9 M1258.3 352.6 Q1252.4 363.3 1244.8 376.8 M1258.3 352.6 Q1269.8 360 1279.7 370.1 M1260 360.5 Q1255.8 367.2 1250.8 375.6 M1260 360.5 Q1267.1 365.5 1273.3 372.3 M1261.7 370.1 Q1259.9 372.8 1257.7 376.3 M1261.7 370.1 Q1264.6 372.2 1267.1 375.1" stroke="#1f4a33" stroke-width="4.6" fill="none" stroke-linecap="round"/><path d="M1232 425 Q1281.8 287.6 1322.6 390.1" stroke="#1f4a33" stroke-width="6.9" fill="none" stroke-linecap="round"/><path d="M1243.6 396 Q1258.1 396.9 1270 400.5 M1243.6 396 Q1235.4 385.2 1224.6 377.1 M1249.3 384 Q1269.1 386 1284.9 391.7 M1249.3 384 Q1239.3 368.5 1225.3 356.6 M1254.9 373.6 Q1279.3 377.4 1298.2 385.6 M1254.9 373.6 Q1244.5 353.3 1228.6 337.4 M1260.5 364.9 Q1288.5 371.1 1309.3 382.4 M1260.5 364.9 Q1251.5 339.7 1235.4 319.7 M1266 357.9 Q1296.4 367.2 1317.7 382.1 M1266 357.9 Q1261.1 328.2 1247 304.1 M1271.5 352.5 Q1302.6 365.6 1322.5 384.8 M1271.5 352.5 Q1273.9 319.5 1265.3 292.5 M1276.9 348.8 Q1306.4 366.2 1322.8 389.8 M1276.9 348.8 Q1290.2 315.7 1290.5 288.7 M1282.2 346.8 Q1307.3 368.2 1318.3 395.7 M1282.2 346.8 Q1307.2 319.2 1317.9 297.6 M1287.5 346.4 Q1305.7 370.1 1310.1 399.6 M1287.5 346.4 Q1319.5 329 1337.6 317.5 M1292.7 347.6 Q1303.3 371 1302.2 399.7 M1292.7 347.6 Q1324.7 340.4 1344.8 338.5 M1297.8 350.5 Q1302.3 371.4 1297.8 396.8 M1297.8 350.5 Q1325.4 350.1 1344 354.2 M1302.9 355.1 Q1303.4 372.1 1297.7 392.9 M1302.9 355.1 Q1324.5 358 1339.8 364.7 M1307.9 361.4 Q1306.6 373.9 1301.2 389.3 M1307.9 361.4 Q1323.3 365.2 1334.6 371.9 M1312.9 369.3 Q1311.2 377.1 1307.3 386.8 M1312.9 369.3 Q1322.2 372.5 1329.4 377.5 M1317.8 378.8 Q1316.8 382 1315 386 M1317.8 378.8 Q1321.5 380.4 1324.4 382.7" stroke="#1f4a33" stroke-width="4.6" fill="none" stroke-linecap="round"/><path d="M1232 425 Q1312.7 344.8 1378.8 475" stroke="#1f4a33" stroke-width="6.9" fill="none" stroke-linecap="round"/><path d="M1250.8 409 Q1263.1 415.1 1270.6 423.6 M1250.8 409 Q1253.6 395.5 1251.6 384.4 M1260 403.2 Q1276.1 412.6 1285.2 425.3 M1260 403.2 Q1267 385.2 1266.9 370.5 M1269.2 398.9 Q1287.8 411.9 1297.3 429 M1269.2 398.9 Q1281.8 377.9 1285.3 361 M1278.2 396 Q1298 412.7 1306.7 434.1 M1278.2 396 Q1297.5 374.2 1305.7 357.2 M1287.2 394.6 Q1306.5 414.7 1313.3 440 M1287.2 394.6 Q1312.9 374.4 1326.1 359.5 M1296 394.6 Q1313.4 417.4 1317.6 445.7 M1296 394.6 Q1326.7 378.1 1344.1 367.1 M1304.7 396.1 Q1319.1 420.4 1320.3 450.5 M1304.7 396.1 Q1338.1 384.2 1358.4 378.1 M1313.4 399 Q1324.1 423.7 1322.6 454.1 M1313.4 399 Q1347.1 392 1368.5 390.5 M1321.9 403.4 Q1329.1 427.3 1325.3 456.4 M1321.9 403.4 Q1353.9 400.5 1375 403 M1330.3 409.3 Q1334.3 431.1 1329.2 457.9 M1330.3 409.3 Q1359.1 409.5 1378.7 414.7 M1338.6 416.6 Q1340.2 435.6 1334.4 458.9 M1338.6 416.6 Q1363.1 418.9 1380.2 425.4 M1346.9 425.3 Q1346.7 440.9 1341.1 459.9 M1346.9 425.3 Q1366.4 428.6 1380.4 435.4 M1355 435.6 Q1354 447.1 1349.2 461.3 M1355 435.6 Q1369.2 438.9 1379.7 444.8 M1363 447.2 Q1361.9 454.6 1358.6 463.6 M1363 447.2 Q1371.9 449.8 1378.5 454 M1370.9 460.4 Q1370.3 463.4 1368.8 467.1 M1370.9 460.4 Q1374.5 461.6 1377.3 463.5" stroke="#1f4a33" stroke-width="4.6" fill="none" stroke-linecap="round"/><path d="M1232 425 Q1330.1 394.1 1410.3 512.8" stroke="#1f4a33" stroke-width="6.9" fill="none" stroke-linecap="round"/><path d="M1254.8 419.8 Q1264.8 429.4 1268.7 441.5 M1254.8 419.8 Q1266.7 409.1 1272.5 401 M1266.1 418.7 Q1278.6 432.4 1282.8 449.5 M1266.1 418.7 Q1283.8 405.8 1293 396.4 M1277.2 418.7 Q1291.3 436.2 1295.2 458 M1277.2 418.7 Q1300.5 404.9 1313.5 395.4 M1288.2 419.7 Q1302.9 440.6 1305.7 466.4 M1288.2 419.7 Q1316.5 406.3 1333 397.9 M1299 421.8 Q1313.3 445.4 1314.8 474.4 M1299 421.8 Q1331.3 409.9 1350.8 403.4 M1309.8 424.9 Q1322.8 450.3 1322.6 481.5 M1309.8 424.9 Q1344.6 415.2 1366.2 411.2 M1320.4 429 Q1331.6 455.3 1329.7 487.6 M1320.4 429 Q1356.2 421.9 1379.1 420.7 M1330.9 434.2 Q1339.9 460.4 1336.5 492.4 M1330.9 434.2 Q1366.2 429.7 1389.2 431 M1341.2 440.4 Q1347.9 465.4 1343.5 496 M1341.2 440.4 Q1374.6 438.3 1396.9 441.8 M1351.5 447.6 Q1356 470.6 1350.8 498.6 M1351.5 447.6 Q1381.7 447.5 1402.2 452.5 M1361.6 455.9 Q1364.2 475.9 1358.8 500.4 M1361.6 455.9 Q1387.6 457.2 1405.6 463 M1371.6 465.2 Q1372.8 481.6 1367.7 501.7 M1371.6 465.2 Q1392.6 467.3 1407.4 473.1 M1381.5 475.5 Q1381.6 487.8 1377.4 502.9 M1381.5 475.5 Q1397 477.8 1408.1 482.9 M1391.2 486.9 Q1390.9 494.8 1387.9 504.4 M1391.2 486.9 Q1401 488.8 1408.1 492.4 M1400.8 499.3 Q1400.6 502.6 1399.2 506.5 M1400.8 499.3 Q1404.8 500.3 1407.8 501.9" stroke="#1f4a33" stroke-width="4.6" fill="none" stroke-linecap="round"/></g><circle cx="1224.3" cy="433.8" r="6.7"/><circle cx="1238.6" cy="434.9" r="6.7"/><circle cx="1232" cy="442.7" r="6.7"/></g></g><g class="layer layer--house"><g class="house"><path d="M650 673 L917.5 603 L1210 673 L1200 685.5 L917.5 620.5 L660 685.5 Z" fill="#3b3f3d"/><path d="M685 683 L917.5 623 L1175 683 Z" fill="#4f3322"/><rect x="692.5" y="683" width="475" height="90" fill="#7a5034"/><rect x="710" y="690.5" width="65" height="75" fill="url(#glass)"/><path d="M717.5 695.5 l20 0 l-15 65 l-5 0 Z" fill="rgba(255,255,255,.45)"/><rect x="785" y="690.5" width="65" height="75" fill="url(#glass)"/><path d="M792.5 695.5 l20 0 l-15 65 l-5 0 Z" fill="rgba(255,255,255,.45)"/><rect x="860" y="690.5" width="65" height="75" fill="url(#glass)"/><path d="M867.5 695.5 l20 0 l-15 65 l-5 0 Z" fill="rgba(255,255,255,.45)"/><rect x="935" y="690.5" width="65" height="75" fill="url(#glass)"/><path d="M942.5 695.5 l20 0 l-15 65 l-5 0 Z" fill="rgba(255,255,255,.45)"/><rect x="1010" y="690.5" width="65" height="75" fill="url(#glass)"/><path d="M1017.5 695.5 l20 0 l-15 65 l-5 0 Z" fill="rgba(255,255,255,.45)"/><rect x="1085" y="690.5" width="65" height="75" fill="url(#glass)"/><path d="M1092.5 695.5 l20 0 l-15 65 l-5 0 Z" fill="rgba(255,255,255,.45)"/><rect x="675" y="770.5" width="510" height="8.8" fill="#4f3322"/><rect x="680" y="753" width="3" height="17.5" fill="#4f3322"/><rect x="705" y="753" width="3" height="17.5" fill="#4f3322"/><rect x="730" y="753" width="3" height="17.5" fill="#4f3322"/><rect x="755" y="753" width="3" height="17.5" fill="#4f3322"/><rect x="780" y="753" width="3" height="17.5" fill="#4f3322"/><rect x="805" y="753" width="3" height="17.5" fill="#4f3322"/><rect x="830" y="753" width="3" height="17.5" fill="#4f3322"/><rect x="855" y="753" width="3" height="17.5" fill="#4f3322"/><rect x="880" y="753" width="3" height="17.5" fill="#4f3322"/><rect x="905" y="753" width="3" height="17.5" fill="#4f3322"/><rect x="930" y="753" width="3" height="17.5" fill="#4f3322"/><rect x="955" y="753" width="3" height="17.5" fill="#4f3322"/><rect x="980" y="753" width="3" height="17.5" fill="#4f3322"/><rect x="1005" y="753" width="3" height="17.5" fill="#4f3322"/><rect x="1030" y="753" width="3" height="17.5" fill="#4f3322"/><rect x="1055" y="753" width="3" height="17.5" fill="#4f3322"/><rect x="1080" y="753" width="3" height="17.5" fill="#4f3322"/><rect x="1105" y="753" width="3" height="17.5" fill="#4f3322"/><rect x="1130" y="753" width="3" height="17.5" fill="#4f3322"/><rect x="1155" y="753" width="3" height="17.5" fill="#4f3322"/><rect x="1180" y="753" width="3" height="17.5" fill="#4f3322"/><rect x="675" y="750.5" width="510" height="3.5" fill="#4f3322"/><rect x="792.5" y="779.2" width="362.5" height="48.8" fill="#7a5034"/><rect class="house__glow" x="810" y="785.5" width="72.5" height="37.5" fill="#ffd89a"/><rect class="house__glow" x="895" y="785.5" width="72.5" height="37.5" fill="#ffd89a"/><rect class="house__glow" x="980" y="785.5" width="72.5" height="37.5" fill="#ffd89a"/><rect class="house__glow" x="1065" y="785.5" width="72.5" height="37.5" fill="#ffd89a"/><rect x="700" y="778" width="7.5" height="50" fill="#4f3322"/></g></g><g class="layer layer--lawn"><path class="" d="M0 1000 L0 850 C160 850 160 830 320 830 C480 830 480 820 640 820 C800 820 800 810 960 810 C1120 810 1120 824 1280 824 C1440 824 1440 844 1600 844 L1600 1000 Z" fill="url(#lawn)"/><g class="couple"><circle cx="841.6" cy="762.2" r="6.9" fill="#2b211c"/><path d="M832.4 771.4 Q841.6 767.7 850.8 771.4 L849.9 810 L848 845 L842.5 845 L841.6 811.9 L839.8 845 L834.2 845 L832.4 810 Z" fill="#1f2f4d"/><path d="M839.8 771.4 L841.6 780.6 L843.4 771.4 Z" fill="#fff"/><path d="M861.8 765.9 Q878.4 762.2 878.4 780.6 Q887.6 812.8 896.8 845 L861.8 845 Z" fill="rgba(255,255,255,.55)"/><circle cx="867.4" cy="764" r="6.4" fill="#4a3226"/><path d="M861.8 771.4 L872.9 771.4 L872 794.4 Q887.6 835.8 889.4 845 L850.8 845 Q854.5 826.6 862.8 794.4 Z" fill="#ffffff"/><circle cx="872" cy="759.4" r="2.3" fill="#ffcf4a"/></g><path class="" d="M0 1000 L0 955 C200 955 200 943 400 943 C600 943 600 959 800 959 C1000 959 1000 947 1200 947 C1400 947 1400 965 1600 965 L1600 1000 Z" fill="#5d9f34"/><g class="plumeria plumeria--lawn"><path transform="rotate(10 120 955)" d="M120 955 C129.2 952.8 135.8 941.4 128.4 933.4 C122.2 929 114.3 937.4 120 955 Z" fill="url(#petal)"/><path transform="rotate(82 120 955)" d="M120 955 C129.2 952.8 135.8 941.4 128.4 933.4 C122.2 929 114.3 937.4 120 955 Z" fill="url(#petal)"/><path transform="rotate(154 120 955)" d="M120 955 C129.2 952.8 135.8 941.4 128.4 933.4 C122.2 929 114.3 937.4 120 955 Z" fill="url(#petal)"/><path transform="rotate(226 120 955)" d="M120 955 C129.2 952.8 135.8 941.4 128.4 933.4 C122.2 929 114.3 937.4 120 955 Z" fill="url(#petal)"/><path transform="rotate(298 120 955)" d="M120 955 C129.2 952.8 135.8 941.4 128.4 933.4 C122.2 929 114.3 937.4 120 955 Z" fill="url(#petal)"/><circle cx="120" cy="955" r="3.5" fill="#ffbf2e"/></g><g class="plumeria plumeria--lawn"><path transform="rotate(40 175 975)" d="M175 975 C181.7 973.4 186.5 965.1 181.1 959.3 C176.6 956.1 170.8 962.2 175 975 Z" fill="url(#petal)"/><path transform="rotate(112 175 975)" d="M175 975 C181.7 973.4 186.5 965.1 181.1 959.3 C176.6 956.1 170.8 962.2 175 975 Z" fill="url(#petal)"/><path transform="rotate(184 175 975)" d="M175 975 C181.7 973.4 186.5 965.1 181.1 959.3 C176.6 956.1 170.8 962.2 175 975 Z" fill="url(#petal)"/><path transform="rotate(256 175 975)" d="M175 975 C181.7 973.4 186.5 965.1 181.1 959.3 C176.6 956.1 170.8 962.2 175 975 Z" fill="url(#petal)"/><path transform="rotate(328 175 975)" d="M175 975 C181.7 973.4 186.5 965.1 181.1 959.3 C176.6 956.1 170.8 962.2 175 975 Z" fill="url(#petal)"/><circle cx="175" cy="975" r="2.6" fill="#ffbf2e"/></g><g class="plumeria plumeria--lawn"><path transform="rotate(25 1480 965)" d="M1480 965 C1488.4 963 1494.4 952.6 1487.6 945.4 C1482 941.4 1474.8 949 1480 965 Z" fill="url(#petal)"/><path transform="rotate(97 1480 965)" d="M1480 965 C1488.4 963 1494.4 952.6 1487.6 945.4 C1482 941.4 1474.8 949 1480 965 Z" fill="url(#petal)"/><path transform="rotate(169 1480 965)" d="M1480 965 C1488.4 963 1494.4 952.6 1487.6 945.4 C1482 941.4 1474.8 949 1480 965 Z" fill="url(#petal)"/><path transform="rotate(241 1480 965)" d="M1480 965 C1488.4 963 1494.4 952.6 1487.6 945.4 C1482 941.4 1474.8 949 1480 965 Z" fill="url(#petal)"/><path transform="rotate(313 1480 965)" d="M1480 965 C1488.4 963 1494.4 952.6 1487.6 945.4 C1482 941.4 1474.8 949 1480 965 Z" fill="url(#petal)"/><circle cx="1480" cy="965" r="3.2" fill="#ffbf2e"/></g><g class="plumeria plumeria--lawn"><path transform="rotate(60 1530 945)" d="M1530 945 C1535.9 943.6 1540.1 936.3 1535.3 931.3 C1531.4 928.5 1526.4 933.8 1530 945 Z" fill="url(#petal)"/><path transform="rotate(132 1530 945)" d="M1530 945 C1535.9 943.6 1540.1 936.3 1535.3 931.3 C1531.4 928.5 1526.4 933.8 1530 945 Z" fill="url(#petal)"/><path transform="rotate(204 1530 945)" d="M1530 945 C1535.9 943.6 1540.1 936.3 1535.3 931.3 C1531.4 928.5 1526.4 933.8 1530 945 Z" fill="url(#petal)"/><path transform="rotate(276 1530 945)" d="M1530 945 C1535.9 943.6 1540.1 936.3 1535.3 931.3 C1531.4 928.5 1526.4 933.8 1530 945 Z" fill="url(#petal)"/><path transform="rotate(348 1530 945)" d="M1530 945 C1535.9 943.6 1540.1 936.3 1535.3 931.3 C1531.4 928.5 1526.4 933.8 1530 945 Z" fill="url(#petal)"/><circle cx="1530" cy="945" r="2.2" fill="#ffbf2e"/></g></g></svg>
+    </div>
+    <div class="hero__photo" id="heroPhoto" hidden></div>
+    <div class="hero__veil"></div>
     <div class="hero__text">
       <p class="hero__sub">We're getting married in Hawaiʻi</p>
-      <h1 class="hero__names"><span data-bind="groom.nameEn"></span> <span class="hero__amp">&amp;</span> <span data-bind="bride.nameEn"></span></h1>
-      <p class="hero__date" data-bind="dateLabel"></p>
-      <p class="hero__place" data-bind="venue.placeLine"></p>
+      <h1 class="hero__names" id="heroNames" aria-label=""></h1>
+      <div class="hero__chips">
+        <span class="chip"><svg class="chip__icon" aria-hidden="true"><use href="#i-cal" width="100%" height="100%"/></svg><span data-bind="dateLabel"></span></span>
+        <span class="chip"><svg class="chip__icon" aria-hidden="true"><use href="#i-pin" width="100%" height="100%"/></svg><span data-bind="venue.placeLine"></span></span>
+      </div>
     </div>
-    <svg class="hero__wave" preserveAspectRatio="none"><use href="#wave" width="100%" height="100%"/></svg>
+    <a class="hero__scroll" href="#greeting" aria-label="下へスクロール"><span class="hero__mouse"><span></span></span></a>
+    <svg class="hero__wave" aria-hidden="true"><use href="#wave" width="100%" height="100%"/></svg>
   </header>
 
   <!-- ===== ご挨拶 ===== -->
   <section class="sec greeting" id="greeting" aria-labelledby="hGreeting">
-    <svg class="flower flower--deco" aria-hidden="true"><use href="#plumeria" width="100%" height="100%"/></svg>
-    <h2 class="head" id="hGreeting"><span class="head__script">Aloha</span><span class="head__ja">ご挨拶</span></h2>
-    <div class="greeting__body" data-list="greeting"></div>
-    <p class="greeting__sign" data-bind="signature"></p>
+    <h2 class="head" id="hGreeting" data-reveal="head"><span class="head__script">Aloha</span><span class="head__ja">ご挨拶</span></h2>
+    <div class="greeting__body" data-list="greeting" data-reveal-children></div>
+    <svg class="divider-flower" data-reveal="bloom" aria-hidden="true"><use href="#flower" width="100%" height="100%"/></svg>
+    <p class="greeting__sign" data-bind="signature" data-reveal></p>
   </section>
 
   <!-- ===== カウントダウン ===== -->
   <section class="countdown" id="countdown" aria-labelledby="hCount">
-    <svg class="edge edge--top" preserveAspectRatio="none"><use href="#wave" width="100%" height="100%"/></svg>
-    <h2 class="head head--light" id="hCount"><span class="head__script">Countdown</span><span class="head__ja">挙式まで</span></h2>
-    <div class="cd">
-      <div class="cd__cell"><span class="cd__num" id="cdDays">--</span><span class="cd__unit">日</span></div>
+    <svg class="edge edge--top" aria-hidden="true"><use href="#wave" width="100%" height="100%"/></svg>
+    <h2 class="head head--light" id="hCount" data-reveal="head"><span class="head__script">Countdown</span><span class="head__ja">挙式まで</span></h2>
+    <div class="cd" data-reveal>
+      <div class="cd__cell cd__cell--main"><span class="cd__num" id="cdDays">--</span><span class="cd__unit">日</span></div>
       <div class="cd__cell"><span class="cd__num" id="cdHours">--</span><span class="cd__unit">時間</span></div>
       <div class="cd__cell"><span class="cd__num" id="cdMins">--</span><span class="cd__unit">分</span></div>
       <div class="cd__cell"><span class="cd__num" id="cdSecs">--</span><span class="cd__unit">秒</span></div>
     </div>
+    <p class="cd__note" data-reveal>ハワイ時間 <strong id="cdLocal"></strong> の挙式に向けて</p>
     <p class="cd__after" id="cdAfter" hidden>ご列席いただき ありがとうございました</p>
-    <svg class="edge edge--bottom" preserveAspectRatio="none"><use href="#wave" width="100%" height="100%"/></svg>
+    <svg class="edge edge--bottom" aria-hidden="true"><use href="#wave" width="100%" height="100%"/></svg>
   </section>
 
   <!-- ===== ふたりについて ===== -->
   <section class="sec people" id="profile" aria-labelledby="hProfile">
-    <h2 class="head" id="hProfile"><span class="head__script">About us</span><span class="head__ja">ふたりについて</span></h2>
+    <h2 class="head" id="hProfile" data-reveal="head"><span class="head__script">About us</span><span class="head__ja">ふたりについて</span></h2>
     <div class="people__grid">
-      <article class="person" data-person="groom"></article>
-      <article class="person" data-person="bride"></article>
+      <article class="person" data-person="groom" data-reveal></article>
+      <article class="person" data-person="bride" data-reveal></article>
     </div>
   </section>
 
   <!-- ===== 写真 ===== -->
   <section class="sec gallery" id="gallery" aria-labelledby="hGallery">
-    <h2 class="head" id="hGallery"><span class="head__script">Gallery</span><span class="head__ja">写真</span></h2>
-    <div class="gallery__strip" id="galleryGrid" tabindex="0" aria-label="写真一覧（横にスワイプ）"></div>
-    <p class="gallery__hint">横にスワイプしてご覧ください</p>
+    <h2 class="head" id="hGallery" data-reveal="head"><span class="head__script">Gallery</span><span class="head__ja">写真</span></h2>
+    <div class="gallery__wrap" data-reveal>
+      <div class="gallery__strip" id="galleryGrid" tabindex="0" aria-label="写真一覧（横にスワイプ）"></div>
+      <div class="gallery__ctrl">
+        <button type="button" class="round-btn" id="galPrev" aria-label="前の写真">‹</button>
+        <div class="gallery__dots" id="galDots" aria-hidden="true"></div>
+        <button type="button" class="round-btn" id="galNext" aria-label="次の写真">›</button>
+      </div>
+    </div>
   </section>
 
-  <!-- ===== ご案内（大小のカード） ===== -->
+  <!-- ===== ご案内 ===== -->
   <section class="sec info" id="information" aria-labelledby="hInfo">
-    <h2 class="head" id="hInfo"><span class="head__script">Information</span><span class="head__ja">ご案内</span></h2>
+    <h2 class="head" id="hInfo" data-reveal="head"><span class="head__script">Information</span><span class="head__ja">ご案内</span></h2>
 
     <div class="bento">
-      <article class="card card--sunset card--date">
+      <article class="card card--date" data-reveal>
+        <div class="card__icon"><svg aria-hidden="true"><use href="#i-cal" width="100%" height="100%"/></svg></div>
         <h3 class="card__title">日時</h3>
         <p class="card__date" data-bind="dateLabel"></p>
         <p class="card__jst" id="jstLine"></p>
         <ol class="timeline" id="schedule"></ol>
       </article>
 
-      <article class="card card--venue">
+      <article class="card card--venue" data-reveal>
+        <div class="card__icon"><svg aria-hidden="true"><use href="#i-pin" width="100%" height="100%"/></svg></div>
         <h3 class="card__title">会場</h3>
         <p class="card__venue" data-bind="venue.name"></p>
         <p class="card__addr" data-bind="venue.address"></p>
@@ -135,31 +150,40 @@
         <ul class="card__list" data-list="venue.access"></ul>
       </article>
 
-      <article class="card card--map">
-        <div class="map" id="mapWrap"></div>
+      <article class="card card--map" data-reveal>
+        <div class="map" id="mapWrap">
+          <svg class="map__pin" aria-hidden="true"><use href="#i-pin" width="100%" height="100%"/></svg>
+          <span class="map__ring" aria-hidden="true"></span>
+        </div>
         <a class="map__link" id="mapLink" target="_blank" rel="noopener noreferrer">Googleマップで開く</a>
       </article>
 
-      <article class="card card--notes" id="notesBlock">
+      <article class="card card--notes" id="notesBlock" data-reveal>
         <h3 class="card__title">そのほかのご案内</h3>
-        <dl class="notes" id="notes"></dl>
+        <div class="notes" id="notes"></div>
       </article>
     </div>
   </section>
 
   <!-- ===== ご出欠 ===== -->
   <section class="rsvp" id="rsvp" aria-labelledby="hRsvp">
-    <svg class="edge edge--top edge--sand" preserveAspectRatio="none"><use href="#wave" width="100%" height="100%"/></svg>
-    <svg class="flower flower--rsvp" aria-hidden="true"><use href="#plumeria" width="100%" height="100%"/></svg>
-    <h2 class="head head--light" id="hRsvp"><span class="head__script">RSVP</span><span class="head__ja">ご出欠のご返信</span></h2>
-    <p class="rsvp__lead"><strong data-bind="rsvpDeadlineLabel"></strong>までに<br>ご返信をお願いいたします</p>
+    <svg class="edge edge--top" aria-hidden="true"><use href="#wave" width="100%" height="100%"/></svg>
+    <svg class="rsvp__flower rsvp__flower--a" aria-hidden="true"><use href="#flower" width="100%" height="100%"/></svg>
+    <svg class="rsvp__flower rsvp__flower--b" aria-hidden="true"><use href="#flower" width="100%" height="100%"/></svg>
+    <h2 class="head head--light" id="hRsvp" data-reveal="head"><span class="head__script">RSVP</span><span class="head__ja">ご出欠のご返信</span></h2>
+    <p class="rsvp__lead" data-reveal><strong data-bind="rsvpDeadlineLabel"></strong>までに<br>ご返信をお願いいたします</p>
     <p class="demo-banner" id="demoBanner" hidden>現在はお試し表示です。送信しても回答は保存されません。</p>
 
     <div class="glass rsvp-closed" id="rsvpClosed" hidden>
       <p>ご回答の受付は終了しました。<br>ご連絡は新郎新婦まで直接お願いいたします。</p>
     </div>
 
-    <form class="glass form" id="rsvpForm" novalidate>
+    <form class="glass form" id="rsvpForm" novalidate data-reveal>
+      <div class="form__progress" aria-hidden="true">
+        <span class="form__progress-label">必須項目 <b id="reqDone">0</b> / <b id="reqTotal">6</b></span>
+        <span class="form__progress-bar"><span id="reqBar"></span></span>
+      </div>
+
       <fieldset class="field">
         <legend class="field__label">ご出欠 <span class="req">必須</span></legend>
         <div class="choice choice--big">
@@ -216,7 +240,7 @@
         <p class="field__err" data-err="postal_code"></p>
       </div>
 
-      <div id="attendOnly">
+      <div id="attendOnly" class="collapse"><div class="collapse__in">
         <div class="field">
           <label class="field__label" for="allergy">アレルギー・苦手な食材</label>
           <textarea id="allergy" name="allergy" maxlength="300" rows="2" placeholder="例：えび・かに（なければ空欄で結構です）"></textarea>
@@ -226,9 +250,9 @@
           <span class="field__label">ご一緒に出席される方</span>
           <p class="field__hint">ご家族などがいらっしゃる場合はお一人ずつ追加してください</p>
           <div id="companions"></div>
-          <button type="button" class="ghost-btn" id="addCompanion">＋ 同伴者を追加</button>
+          <button type="button" class="btn btn--ghost btn--sm" id="addCompanion">＋ 同伴者を追加</button>
         </div>
-      </div>
+      </div></div>
 
       <div class="field">
         <label class="field__label" for="message">ふたりへのメッセージ</label>
@@ -242,7 +266,7 @@
 
       <p class="form__privacy">ご入力いただいた情報は、この結婚式のご案内と準備のためだけに使い、新郎新婦以外には公開しません。</p>
 
-      <button type="submit" class="pill-btn pill-btn--full">入力内容を確認する</button>
+      <button type="submit" class="btn btn--primary btn--block">入力内容を確認する</button>
       <p class="field__err field__err--center" id="formErr"></p>
     </form>
 
@@ -250,28 +274,32 @@
       <h3 class="confirm__title">この内容で送信します</h3>
       <dl class="confirm__list" id="confirmList"></dl>
       <div class="confirm__btns">
-        <button type="button" class="ghost-btn" id="backBtn">修正する</button>
-        <button type="button" class="pill-btn" id="sendBtn">この内容で送信する</button>
+        <button type="button" class="btn btn--ghost" id="backBtn">修正する</button>
+        <button type="button" class="btn btn--primary" id="sendBtn">この内容で送信する</button>
       </div>
       <p class="field__err field__err--center" id="sendErr"></p>
     </div>
 
     <div class="glass thanks" id="thanksView" hidden>
+      <div class="thanks__burst" id="thanksBurst" aria-hidden="true"></div>
+      <svg class="thanks__check" viewBox="0 0 52 52" aria-hidden="true"><circle cx="26" cy="26" r="24"/><path d="M15 27 l7 7 l15 -16"/></svg>
       <p class="thanks__word">Mahalo</p>
       <p class="thanks__msg" id="thanksMsg"></p>
     </div>
   </section>
 
   <footer class="footer">
-    <svg class="palm footer__palm footer__palm--l"><use href="#palm" width="100%" height="100%"/></svg>
-    <svg class="palm footer__palm footer__palm--r"><use href="#palm" width="100%" height="100%"/></svg>
-    <p class="footer__mahalo">Mahalo</p>
+    <svg class="footer__wave footer__wave--a" aria-hidden="true"><use href="#wave" width="100%" height="100%"/></svg>
+    <svg class="footer__wave footer__wave--b" aria-hidden="true"><use href="#wave" width="100%" height="100%"/></svg>
+    <p class="footer__mahalo" data-reveal="head"><span class="head__script">Mahalo</span></p>
     <p class="footer__closing" data-bind="closing"></p>
     <p class="footer__names"><span data-bind="groom.nameEn"></span> &amp; <span data-bind="bride.nameEn"></span></p>
   </footer>
 </main>
 
-<script src="js/config.js?v=4"></script>
-<script src="js/app.js?v=4"></script>
+<a class="cta" id="rsvpCta" href="#rsvp" hidden>ご出欠を回答する</a>
+
+<script src="js/config.js?v=5"></script>
+<script src="js/app.js?v=5"></script>
 </body>
 </html>

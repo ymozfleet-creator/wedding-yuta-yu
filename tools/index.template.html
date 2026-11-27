@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data:; connect-src 'self' https://*.supabase.co; frame-src https://www.google.com; base-uri 'none'; form-action 'none'; object-src 'none'">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<meta name="robots" content="noindex, nofollow">
+<meta name="theme-color" content="#1673c4">
+<title>Wedding Invitation</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Parisienne&family=Cormorant+Garamond:wght@500;600&family=Zen+Maru+Gothic:wght@400;500;700&display=swap">
+<link rel="stylesheet" href="css/style.css?v=__V__">
+</head>
+<body class="is-locked">
+
+<div class="progress" aria-hidden="true"><span id="progressBar"></span></div>
+
+<!-- 再利用する絵 -->
+<svg class="sprite" aria-hidden="true" focusable="false">
+  <defs>
+    <radialGradient id="petalG" cx=".5" cy=".95" r=".95"><stop offset="0" stop-color="#ffcb3d"/><stop offset=".38" stop-color="#fff4cf"/><stop offset="1" stop-color="#ffffff"/></radialGradient>
+  </defs>
+  <symbol id="flower" viewBox="-60 -60 120 120">
+    <g class="fl-petals">
+      <path class="fl-p fl-p1" d="M0 0 C21 -5 36 -31 19 -49 C5 -60 -13 -40 0 0 Z" fill="url(#petalG)"/>
+      <path class="fl-p fl-p2" transform="rotate(72)" d="M0 0 C21 -5 36 -31 19 -49 C5 -60 -13 -40 0 0 Z" fill="url(#petalG)"/>
+      <path class="fl-p fl-p3" transform="rotate(144)" d="M0 0 C21 -5 36 -31 19 -49 C5 -60 -13 -40 0 0 Z" fill="url(#petalG)"/>
+      <path class="fl-p fl-p4" transform="rotate(216)" d="M0 0 C21 -5 36 -31 19 -49 C5 -60 -13 -40 0 0 Z" fill="url(#petalG)"/>
+      <path class="fl-p fl-p5" transform="rotate(288)" d="M0 0 C21 -5 36 -31 19 -49 C5 -60 -13 -40 0 0 Z" fill="url(#petalG)"/>
+    </g>
+    <circle r="7" fill="#ffb81f"/>
+  </symbol>
+  <symbol id="wave" viewBox="0 0 1440 80" preserveAspectRatio="none">
+    <path d="M0 42 C120 70 240 70 360 42 C480 14 600 14 720 42 C840 70 960 70 1080 42 C1200 14 1320 14 1440 42 L1440 80 L0 80 Z"/>
+  </symbol>
+  <symbol id="i-pin" viewBox="0 0 24 24"><path d="M12 2a7 7 0 0 0-7 7c0 5.2 7 13 7 13s7-7.8 7-13a7 7 0 0 0-7-7Zm0 9.5A2.5 2.5 0 1 1 12 6.5a2.5 2.5 0 0 1 0 5Z"/></symbol>
+  <symbol id="i-cal" viewBox="0 0 24 24"><path d="M7 2v2H5a2 2 0 0 0-2 2v13a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2h-2V2h-2v2H9V2H7Zm12 8v9H5v-9h14Z"/></symbol>
+  <symbol id="i-shirt" viewBox="0 0 24 24"><path d="M8 3 3 6l2 5 2-1v11h10V10l2 1 2-5-5-3c-.6 1.6-2.2 2.7-4 2.7S8.6 4.6 8 3Z"/></symbol>
+  <symbol id="i-kid" viewBox="0 0 24 24"><circle cx="12" cy="5" r="3"/><path d="M8 10h8l-1 6h-2v6h-2v-6H9l-1-6Z"/></symbol>
+  <symbol id="i-car" viewBox="0 0 24 24"><path d="M5 11 6.6 6.4A2 2 0 0 1 8.5 5h7a2 2 0 0 1 1.9 1.4L19 11h1v6h-2v2h-2v-2H8v2H6v-2H4v-6h1Zm2.2 0h9.6l-1.2-3.6H8.4L7.2 11ZM7 15a1.3 1.3 0 1 0 0-2.6A1.3 1.3 0 0 0 7 15Zm10 0a1.3 1.3 0 1 0 0-2.6 1.3 1.3 0 0 0 0 2.6Z"/></symbol>
+</svg>
+
+<!-- ===== オープニング ===== -->
+<div class="opening" id="opening">
+  <div class="opening__bg"></div>
+  <div class="opening__petals" aria-hidden="true"></div>
+  <div class="opening__inner">
+    <svg class="opening__flower" aria-hidden="true"><use href="#flower" width="100%" height="100%"/></svg>
+    <p class="opening__aloha"><span>Aloha</span></p>
+    <p class="opening__lead">結婚式のご案内</p>
+    <p class="opening__names" data-bind="signature"></p>
+    <button type="button" class="btn btn--primary btn--pulse" id="openBtn">招待状をひらく</button>
+  </div>
+</div>
+
+<main id="main">
+
+  <!-- ===== メインビジュアル ===== -->
+  <header class="hero" id="top">
+    <div class="hero__art">
+__SCENE__
+    </div>
+    <div class="hero__photo" id="heroPhoto" hidden></div>
+    <div class="hero__veil"></div>
+    <div class="hero__text">
+      <p class="hero__sub">We're getting married in Hawaiʻi</p>
+      <h1 class="hero__names" id="heroNames" aria-label=""></h1>
+      <div class="hero__chips">
+        <span class="chip"><svg class="chip__icon" aria-hidden="true"><use href="#i-cal" width="100%" height="100%"/></svg><span data-bind="dateLabel"></span></span>
+        <span class="chip"><svg class="chip__icon" aria-hidden="true"><use href="#i-pin" width="100%" height="100%"/></svg><span data-bind="venue.placeLine"></span></span>
+      </div>
+    </div>
+    <a class="hero__scroll" href="#greeting" aria-label="下へスクロール"><span class="hero__mouse"><span></span></span></a>
+    <svg class="hero__wave" aria-hidden="true"><use href="#wave" width="100%" height="100%"/></svg>
+  </header>
+
+  <!-- ===== ご挨拶 ===== -->
+  <section class="sec greeting" id="greeting" aria-labelledby="hGreeting">
+    <h2 class="head" id="hGreeting" data-reveal="head"><span class="head__script">Aloha</span><span class="head__ja">ご挨拶</span></h2>
+    <div class="greeting__body" data-list="greeting" data-reveal-children></div>
+    <svg class="divider-flower" data-reveal="bloom" aria-hidden="true"><use href="#flower" width="100%" height="100%"/></svg>
+    <p class="greeting__sign" data-bind="signature" data-reveal></p>
+  </section>
+
+  <!-- ===== カウントダウン ===== -->
+  <section class="countdown" id="countdown" aria-labelledby="hCount">
+    <svg class="edge edge--top" aria-hidden="true"><use href="#wave" width="100%" height="100%"/></svg>
+    <h2 class="head head--light" id="hCount" data-reveal="head"><span class="head__script">Countdown</span><span class="head__ja">挙式まで</span></h2>
+    <div class="cd" data-reveal>
+      <div class="cd__cell cd__cell--main"><span class="cd__num" id="cdDays">--</span><span class="cd__unit">日</span></div>
+      <div class="cd__cell"><span class="cd__num" id="cdHours">--</span><span class="cd__unit">時間</span></div>
+      <div class="cd__cell"><span class="cd__num" id="cdMins">--</span><span class="cd__unit">分</span></div>
+      <div class="cd__cell"><span class="cd__num" id="cdSecs">--</span><span class="cd__unit">秒</span></div>
+    </div>
+    <p class="cd__note" data-reveal>ハワイ時間 <strong id="cdLocal"></strong> の挙式に向けて</p>
+    <p class="cd__after" id="cdAfter" hidden>ご列席いただき ありがとうございました</p>
+    <svg class="edge edge--bottom" aria-hidden="true"><use href="#wave" width="100%" height="100%"/></svg>
+  </section>
+
+  <!-- ===== ふたりについて ===== -->
+  <section class="sec people" id="profile" aria-labelledby="hProfile">
+    <h2 class="head" id="hProfile" data-reveal="head"><span class="head__script">About us</span><span class="head__ja">ふたりについて</span></h2>
+    <div class="people__grid">
+      <article class="person" data-person="groom" data-reveal></article>
+      <article class="person" data-person="bride" data-reveal></article>
+    </div>
+  </section>
+
+  <!-- ===== 写真 ===== -->
+  <section class="sec gallery" id="gallery" aria-labelledby="hGallery">
+    <h2 class="head" id="hGallery" data-reveal="head"><span class="head__script">Gallery</span><span class="head__ja">写真</span></h2>
+    <div class="gallery__wrap" data-reveal>
+      <div class="gallery__strip" id="galleryGrid" tabindex="0" aria-label="写真一覧（横にスワイプ）"></div>
+      <div class="gallery__ctrl">
+        <button type="button" class="round-btn" id="galPrev" aria-label="前の写真">‹</button>
+        <div class="gallery__dots" id="galDots" aria-hidden="true"></div>
+        <button type="button" class="round-btn" id="galNext" aria-label="次の写真">›</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== ご案内 ===== -->
+  <section class="sec info" id="information" aria-labelledby="hInfo">
+    <h2 class="head" id="hInfo" data-reveal="head"><span class="head__script">Information</span><span class="head__ja">ご案内</span></h2>
+
+    <div class="bento">
+      <article class="card card--date" data-reveal>
+        <div class="card__icon"><svg aria-hidden="true"><use href="#i-cal" width="100%" height="100%"/></svg></div>
+        <h3 class="card__title">日時</h3>
+        <p class="card__date" data-bind="dateLabel"></p>
+        <p class="card__jst" id="jstLine"></p>
+        <ol class="timeline" id="schedule"></ol>
+      </article>
+
+      <article class="card card--venue" data-reveal>
+        <div class="card__icon"><svg aria-hidden="true"><use href="#i-pin" width="100%" height="100%"/></svg></div>
+        <h3 class="card__title">会場</h3>
+        <p class="card__venue" data-bind="venue.name"></p>
+        <p class="card__addr" data-bind="venue.address"></p>
+        <p class="card__addr" id="telLine">TEL <a data-tel="venue.tel"></a></p>
+        <ul class="card__list" data-list="venue.access"></ul>
+      </article>
+
+      <article class="card card--map" data-reveal>
+        <div class="map" id="mapWrap">
+          <svg class="map__pin" aria-hidden="true"><use href="#i-pin" width="100%" height="100%"/></svg>
+          <span class="map__ring" aria-hidden="true"></span>
+        </div>
+        <a class="map__link" id="mapLink" target="_blank" rel="noopener noreferrer">Googleマップで開く</a>
+      </article>
+
+      <article class="card card--notes" id="notesBlock" data-reveal>
+        <h3 class="card__title">そのほかのご案内</h3>
+        <div class="notes" id="notes"></div>
+      </article>
+    </div>
+  </section>
+
+  <!-- ===== ご出欠 ===== -->
+  <section class="rsvp" id="rsvp" aria-labelledby="hRsvp">
+    <svg class="edge edge--top" aria-hidden="true"><use href="#wave" width="100%" height="100%"/></svg>
+    <svg class="rsvp__flower rsvp__flower--a" aria-hidden="true"><use href="#flower" width="100%" height="100%"/></svg>
+    <svg class="rsvp__flower rsvp__flower--b" aria-hidden="true"><use href="#flower" width="100%" height="100%"/></svg>
+    <h2 class="head head--light" id="hRsvp" data-reveal="head"><span class="head__script">RSVP</span><span class="head__ja">ご出欠のご返信</span></h2>
+    <p class="rsvp__lead" data-reveal><strong data-bind="rsvpDeadlineLabel"></strong>までに<br>ご返信をお願いいたします</p>
+    <p class="demo-banner" id="demoBanner" hidden>現在はお試し表示です。送信しても回答は保存されません。</p>
+
+    <div class="glass rsvp-closed" id="rsvpClosed" hidden>
+      <p>ご回答の受付は終了しました。<br>ご連絡は新郎新婦まで直接お願いいたします。</p>
+    </div>
+
+    <form class="glass form" id="rsvpForm" novalidate data-reveal>
+      <div class="form__progress" aria-hidden="true">
+        <span class="form__progress-label">必須項目 <b id="reqDone">0</b> / <b id="reqTotal">6</b></span>
+        <span class="form__progress-bar"><span id="reqBar"></span></span>
+      </div>
+
+      <fieldset class="field">
+        <legend class="field__label">ご出欠 <span class="req">必須</span></legend>
+        <div class="choice choice--big">
+          <label><input type="radio" name="attendance" value="attend" required><span>ご出席</span></label>
+          <label><input type="radio" name="attendance" value="decline"><span>ご欠席</span></label>
+        </div>
+        <p class="field__err" data-err="attendance"></p>
+      </fieldset>
+
+      <fieldset class="field">
+        <legend class="field__label">ゲスト区分 <span class="req">必須</span></legend>
+        <div class="choice">
+          <label><input type="radio" name="side" value="groom" required><span>新郎側</span></label>
+          <label><input type="radio" name="side" value="bride"><span>新婦側</span></label>
+        </div>
+        <p class="field__err" data-err="side"></p>
+      </fieldset>
+
+      <div class="field">
+        <span class="field__label">お名前 <span class="req">必須</span></span>
+        <div class="row2">
+          <input type="text" name="last_name" placeholder="姓" maxlength="30" autocomplete="family-name" required aria-label="姓">
+          <input type="text" name="first_name" placeholder="名" maxlength="30" autocomplete="given-name" required aria-label="名">
+        </div>
+        <p class="field__err" data-err="name"></p>
+      </div>
+
+      <div class="field">
+        <span class="field__label">ふりがな <span class="req">必須</span></span>
+        <div class="row2">
+          <input type="text" name="last_kana" placeholder="せい" maxlength="30" required aria-label="せい">
+          <input type="text" name="first_kana" placeholder="めい" maxlength="30" required aria-label="めい">
+        </div>
+        <p class="field__err" data-err="kana"></p>
+      </div>
+
+      <div class="field">
+        <label class="field__label" for="email">メールアドレス <span class="req">必須</span></label>
+        <input type="email" id="email" name="email" maxlength="120" autocomplete="email" inputmode="email" required>
+        <p class="field__err" data-err="email"></p>
+      </div>
+
+      <div class="field">
+        <label class="field__label" for="phone">電話番号</label>
+        <input type="tel" id="phone" name="phone" maxlength="20" autocomplete="tel" inputmode="tel" placeholder="090-0000-0000">
+        <p class="field__err" data-err="phone"></p>
+      </div>
+
+      <div class="field">
+        <span class="field__label">ご住所</span>
+        <input type="text" name="postal_code" maxlength="8" autocomplete="postal-code" inputmode="numeric" placeholder="郵便番号" class="w-half" aria-label="郵便番号">
+        <input type="text" name="address" maxlength="200" autocomplete="street-address" placeholder="都道府県・市区町村・番地・建物名" aria-label="住所">
+        <p class="field__hint">当日のご案内やお礼状の送付に使わせていただきます</p>
+        <p class="field__err" data-err="postal_code"></p>
+      </div>
+
+      <div id="attendOnly" class="collapse"><div class="collapse__in">
+        <div class="field">
+          <label class="field__label" for="allergy">アレルギー・苦手な食材</label>
+          <textarea id="allergy" name="allergy" maxlength="300" rows="2" placeholder="例：えび・かに（なければ空欄で結構です）"></textarea>
+        </div>
+
+        <div class="field">
+          <span class="field__label">ご一緒に出席される方</span>
+          <p class="field__hint">ご家族などがいらっしゃる場合はお一人ずつ追加してください</p>
+          <div id="companions"></div>
+          <button type="button" class="btn btn--ghost btn--sm" id="addCompanion">＋ 同伴者を追加</button>
+        </div>
+      </div></div>
+
+      <div class="field">
+        <label class="field__label" for="message">ふたりへのメッセージ</label>
+        <textarea id="message" name="message" maxlength="500" rows="4"></textarea>
+        <p class="field__count"><span id="msgCount">0</span> / 500</p>
+      </div>
+
+      <div class="hp" aria-hidden="true">
+        <label>この欄は空のままにしてください<input type="text" name="website" tabindex="-1" autocomplete="off"></label>
+      </div>
+
+      <p class="form__privacy">ご入力いただいた情報は、この結婚式のご案内と準備のためだけに使い、新郎新婦以外には公開しません。</p>
+
+      <button type="submit" class="btn btn--primary btn--block">入力内容を確認する</button>
+      <p class="field__err field__err--center" id="formErr"></p>
+    </form>
+
+    <div class="glass confirm" id="confirmView" hidden>
+      <h3 class="confirm__title">この内容で送信します</h3>
+      <dl class="confirm__list" id="confirmList"></dl>
+      <div class="confirm__btns">
+        <button type="button" class="btn btn--ghost" id="backBtn">修正する</button>
+        <button type="button" class="btn btn--primary" id="sendBtn">この内容で送信する</button>
+      </div>
+      <p class="field__err field__err--center" id="sendErr"></p>
+    </div>
+
+    <div class="glass thanks" id="thanksView" hidden>
+      <div class="thanks__burst" id="thanksBurst" aria-hidden="true"></div>
+      <svg class="thanks__check" viewBox="0 0 52 52" aria-hidden="true"><circle cx="26" cy="26" r="24"/><path d="M15 27 l7 7 l15 -16"/></svg>
+      <p class="thanks__word">Mahalo</p>
+      <p class="thanks__msg" id="thanksMsg"></p>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <svg class="footer__wave footer__wave--a" aria-hidden="true"><use href="#wave" width="100%" height="100%"/></svg>
+    <svg class="footer__wave footer__wave--b" aria-hidden="true"><use href="#wave" width="100%" height="100%"/></svg>
+    <p class="footer__mahalo" data-reveal="head"><span class="head__script">Mahalo</span></p>
+    <p class="footer__closing" data-bind="closing"></p>
+    <p class="footer__names"><span data-bind="groom.nameEn"></span> &amp; <span data-bind="bride.nameEn"></span></p>
+  </footer>
+</main>
+
+<a class="cta" id="rsvpCta" href="#rsvp" hidden>ご出欠を回答する</a>
+
+<script src="js/config.js?v=__V__"></script>
+<script src="js/app.js?v=__V__"></script>
+</body>
+</html>

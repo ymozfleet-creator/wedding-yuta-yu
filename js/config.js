@@ -10,7 +10,7 @@ window.WEDDING_CONFIG = {
     nameJa: "茂住 雄太",
     nameEn: "Yuta",
     role: "新郎",
-    photo: "images/groom.jpg",
+    photo: "images/groom.svg",
     profile: [
       // 例："趣味：キャンプ・コーヒー"
     ]
@@ -19,21 +19,21 @@ window.WEDDING_CONFIG = {
     nameJa: "島崎 唯有",
     nameEn: "Yu",
     role: "新婦",
-    photo: "images/bride.jpg",
+    photo: "images/bride.svg",
     profile: [
       // 例："趣味：お菓子づくり・旅行"
     ]
   },
 
-  /* ---------- メイン写真・ギャラリー ---------- */
-  heroPhoto: "images/hero.jpg",
+  /* ---------- メイン写真・ギャラリー（現在はデモのイラスト。写真のjpgに差し替え可） ---------- */
+  heroPhoto: "",  // 写真（例 "images/hero.jpg"）を入れるとイラストの代わりに表示
   gallery: [
-    "images/gallery1.jpg",
-    "images/gallery2.jpg",
-    "images/gallery3.jpg",
-    "images/gallery4.jpg",
-    "images/gallery5.jpg",
-    "images/gallery6.jpg"
+    "images/gallery1.svg",
+    "images/gallery2.svg",
+    "images/gallery3.svg",
+    "images/gallery4.svg",
+    "images/gallery5.svg",
+    "images/gallery6.svg"
   ],
 
   /* ---------- ご挨拶文（段落ごとに1要素） ---------- */

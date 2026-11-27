@@ -4,6 +4,9 @@
   var C = window.WEDDING_CONFIG;
   var $ = function (s, r) { return (r || document).querySelector(s); };
   var $$ = function (s, r) { return Array.prototype.slice.call((r || document).querySelectorAll(s)); };
+  var reduceMotion = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  var SVGNS = "http://www.w3.org/2000/svg";
+  document.documentElement.classList.add("js");
 
   var LABELS = {
     attendance: { attend: "ご出席", decline: "ご欠席" },
@@ -20,29 +23,36 @@
     if (text != null) e.textContent = text;
     return e;
   }
+  function useIcon(id, cls) {
+    var s = document.createElementNS(SVGNS, "svg");
+    if (cls) s.setAttribute("class", cls);
+    s.setAttribute("aria-hidden", "true");
+    var u = document.createElementNS(SVGNS, "use");
+    u.setAttribute("href", "#" + id); u.setAttribute("width", "100%"); u.setAttribute("height", "100%");
+    s.appendChild(u);
+    return s;
+  }
   // 画像のパスは自サイト内のファイルのみ許可（外部URLや javascript: を拒否）
   function safeImg(src) {
-    return typeof src === "string" && /^[\w\-./]+\.(jpe?g|png|webp|gif|avif)$/i.test(src) && src.indexOf("..") === -1 ? src : "";
+    return typeof src === "string" && /^[\w\-./]+\.(jpe?g|png|webp|gif|avif|svg)$/i.test(src) && src.indexOf("..") === -1 ? src : "";
   }
   function setBg(node, src) {
     var s = safeImg(src);
     if (s) node.style.backgroundImage = 'url("' + s + '")';
+    return !!s;
   }
   function storage(fn) { try { return fn(window.localStorage); } catch (e) { return null; } }
 
   /* ============ 内容の流し込み ============ */
   var namesEn = C.groom.nameEn + " & " + C.bride.nameEn;
-  var derived = { namesEn: namesEn };
-
   $$("[data-bind]").forEach(function (n) {
-    var k = n.getAttribute("data-bind");
-    var v = k in derived ? derived[k] : get(C, k);
+    var v = get(C, n.getAttribute("data-bind"));
     n.textContent = v == null ? "" : v;
   });
   $$("[data-list]").forEach(function (n) {
     var items = get(C, n.getAttribute("data-list")) || [];
     var tag = n.tagName === "UL" ? "li" : "p";
-    items.forEach(function (t) { n.appendChild(el(tag, null, t)); });
+    items.forEach(function (t, i) { var c = el(tag, null, t); c.style.transitionDelay = (i * 0.12) + "s"; n.appendChild(c); });
   });
   $$("[data-tel]").forEach(function (a) {
     var tel = get(C, a.getAttribute("data-tel")) || "";
@@ -50,15 +60,46 @@
     a.textContent = tel;
     a.href = "tel:" + tel.replace(/[^\d+]/g, "");
   });
-  $$("[data-bg]").forEach(function (n) { setBg(n, get(C, n.getAttribute("data-bg"))); });
   document.title = namesEn + " | Wedding Invitation";
+
+  // メイン：写真が設定されていれば写真、なければイラストの風景
+  if (setBg($("#heroPhoto"), C.heroPhoto)) { $("#heroPhoto").hidden = false; $(".hero__art").hidden = true; }
+
+  // 縦長の画面では邸宅とお二人が中央に来るよう構図を調整
+  var scene = $(".scene");
+  function frameScene() {
+    if (!scene) return;
+    scene.setAttribute("viewBox", innerWidth / innerHeight < 0.9 ? "130 0 1600 1000" : "0 0 1600 1000");
+  }
+  frameScene();
+  window.addEventListener("resize", frameScene);
+
+  // お名前を1文字ずつ（登場の動き用）
+  var hn = $("#heroNames");
+  hn.setAttribute("aria-label", namesEn);
+  var idx = 0;
+  [C.groom.nameEn, "&", C.bride.nameEn].forEach(function (word, w) {
+    var wrap = el("span", w === 1 ? "amp" : "word");
+    wrap.setAttribute("aria-hidden", "true");
+    word.split("").forEach(function (ch) {
+      var s = el("span", "ch", ch); s.style.setProperty("--i", idx++); wrap.appendChild(s);
+    });
+    hn.appendChild(wrap);
+  });
 
   // プロフィール
   ["groom", "bride"].forEach(function (key) {
     var p = C[key], box = $('[data-person="' + key + '"]');
+    var frame = el("div", "person__frame");
+    var ring = document.createElementNS(SVGNS, "svg");
+    ring.setAttribute("class", "person__ring"); ring.setAttribute("viewBox", "0 0 100 100"); ring.setAttribute("aria-hidden", "true");
+    var c = document.createElementNS(SVGNS, "circle"); c.setAttribute("cx", "50"); c.setAttribute("cy", "50"); c.setAttribute("r", "48.5");
+    ring.appendChild(c); frame.appendChild(ring);
     var ph = el("div", "person__photo"); setBg(ph, p.photo);
     ph.setAttribute("role", "img"); ph.setAttribute("aria-label", p.role + " " + p.nameJa);
-    box.appendChild(ph);
+    frame.appendChild(ph);
+    frame.appendChild(useIcon("flower", "person__flower"));
+    box.appendChild(frame);
     box.appendChild(el("p", "person__role", p.role));
     box.appendChild(el("p", "person__name", p.nameJa));
     if (p.nameEn && p.nameEn !== p.nameJa) box.appendChild(el("p", "person__en", p.nameEn));
@@ -67,17 +108,51 @@
     box.appendChild(ul);
   });
 
-  // ギャラリー
-  var grid = $("#galleryGrid");
+  /* ============ 写真（中央の1枚を大きく） ============ */
+  var strip = $("#galleryGrid"), dots = $("#galDots");
   var photos = (C.gallery || []).map(safeImg).filter(Boolean);
   if (!photos.length) $("#gallery").hidden = true;
-  photos.forEach(function (src, i) {
+  var items = photos.map(function (src, i) {
     var b = el("button", "gallery__item");
     b.type = "button"; setBg(b, src);
-    b.setAttribute("aria-label", "写真 " + (i + 1) + " を拡大");
-    b.addEventListener("click", function () { openLightbox(src); });
-    grid.appendChild(b);
+    b.setAttribute("aria-label", "写真 " + (i + 1) + " / " + photos.length + " を拡大");
+    b.addEventListener("click", function () {
+      if (!b.classList.contains("is-active")) { go(i); return; }
+      openLightbox(src);
+    });
+    strip.appendChild(b);
+    dots.appendChild(el("span"));
+    return b;
   });
+  var current = 0;
+  function setActive(i) {
+    current = i;
+    items.forEach(function (b, k) { b.classList.toggle("is-active", k === i); });
+    $$("span", dots).forEach(function (d, k) { d.classList.toggle("is-on", k === i); });
+  }
+  function go(i) {
+    i = Math.max(0, Math.min(items.length - 1, i));
+    var b = items[i];
+    strip.scrollTo({ left: b.offsetLeft - (strip.clientWidth - b.clientWidth) / 2, behavior: reduceMotion ? "auto" : "smooth" });
+    setActive(i);
+  }
+  var galTimer;
+  strip.addEventListener("scroll", function () {
+    clearTimeout(galTimer);
+    galTimer = setTimeout(function () {
+      var mid = strip.scrollLeft + strip.clientWidth / 2, best = 0, bd = Infinity;
+      items.forEach(function (b, k) { var d = Math.abs(b.offsetLeft + b.clientWidth / 2 - mid); if (d < bd) { bd = d; best = k; } });
+      setActive(best);
+    }, 60);
+  }, { passive: true });
+  $("#galPrev").addEventListener("click", function () { go(current - 1); });
+  $("#galNext").addEventListener("click", function () { go(current + 1); });
+  strip.addEventListener("keydown", function (e) {
+    if (e.key === "ArrowRight") { e.preventDefault(); go(current + 1); }
+    if (e.key === "ArrowLeft") { e.preventDefault(); go(current - 1); }
+  });
+  if (items.length) setActive(0);
+
   function openLightbox(src) {
     var lb = el("div", "lightbox"); lb.setAttribute("role", "dialog"); lb.setAttribute("aria-label", "写真の拡大表示");
     var img = el("img"); img.src = src; img.alt = "";
@@ -89,23 +164,28 @@
     document.body.appendChild(lb);
   }
 
-  // スケジュール
+  /* ============ ご案内 ============ */
   var sch = $("#schedule");
-  (C.schedule || []).forEach(function (s) {
-    var li = el("li");
+  (C.schedule || []).forEach(function (s, i) {
+    var li = el("li"); li.style.setProperty("--i", i);
     li.appendChild(el("span", "timeline__time", s.time));
     li.appendChild(el("span", "timeline__label", s.label));
     sch.appendChild(li);
   });
 
-  // 日本時間の換算（海外挙式のため）
+  // 日本時間・ハワイ時間の表示（海外挙式のため）
+  function partsIn(date, tz) {
+    var o = {};
+    new Intl.DateTimeFormat("ja-JP", { timeZone: tz, year: "numeric", month: "numeric", day: "numeric", weekday: "short", hour: "numeric", minute: "2-digit", hourCycle: "h23" })
+      .formatToParts(date).forEach(function (p) { o[p.type] = p.value; });
+    return o;
+  }
   try {
     var cs = new Date(C.ceremonyStart);
     if (!isNaN(cs)) {
-      var parts = {};
-      new Intl.DateTimeFormat("ja-JP", { timeZone: "Asia/Tokyo", year: "numeric", month: "numeric", day: "numeric", weekday: "short", hour: "numeric", minute: "2-digit", hourCycle: "h23" })
-        .formatToParts(cs).forEach(function (p) { parts[p.type] = p.value; });
-      $("#jstLine").textContent = "挙式開始は日本時間で " + parts.year + "年" + parts.month + "月" + parts.day + "日（" + parts.weekday + "）" + parts.hour + ":" + parts.minute + " です";
+      var j = partsIn(cs, "Asia/Tokyo"), h = partsIn(cs, "Pacific/Honolulu");
+      $("#jstLine").textContent = "挙式開始は日本時間で " + j.year + "年" + j.month + "月" + j.day + "日（" + j.weekday + "）" + j.hour + ":" + j.minute + " です";
+      $("#cdLocal").textContent = h.month + "月" + h.day + "日 " + h.hour + ":" + h.minute;
     }
   } catch (e) { /* 換算できない環境では表示しない */ }
 
@@ -116,50 +196,123 @@
   iframe.loading = "lazy";
   iframe.title = "会場の地図";
   iframe.referrerPolicy = "no-referrer-when-downgrade";
-  $("#mapWrap").appendChild(iframe);
+  $("#mapWrap").insertBefore(iframe, $("#mapWrap").firstChild);
   $("#mapLink").href = "https://www.google.com/maps/search/?api=1&query=" + q;
 
-  // その他のご案内
+  // そのほかのご案内（内容に合うアイコン付き）
   var notes = $("#notes");
   if (!(C.notes || []).length) $("#notesBlock").hidden = true;
-  (C.notes || []).forEach(function (n) { notes.appendChild(el("dt", null, n.title)); notes.appendChild(el("dd", null, n.body)); });
+  (C.notes || []).forEach(function (n) {
+    var icon = /服|ドレス/.test(n.title) ? "i-shirt" : /子/.test(n.title) ? "i-kid" : /送迎|移動|車|アクセス/.test(n.title) ? "i-car" : "i-cal";
+    var row = el("div", "note");
+    var ic = el("div", "note__icon"); ic.appendChild(useIcon(icon));
+    var body = el("div");
+    body.appendChild(el("p", "note__t", n.title)); body.appendChild(el("p", "note__b", n.body));
+    row.appendChild(ic); row.appendChild(body);
+    notes.appendChild(row);
+  });
 
-  /* ============ オープニング（青空の幕が上がる） ============ */
+  /* ============ オープニング ============ */
   var opening = $("#opening");
-  function unlock() { document.body.classList.remove("is-locked"); }
+  function petalNode(cls) {
+    var d = el("span", cls); d.appendChild(useIcon("flower")); return d;
+  }
+  if (!reduceMotion) {
+    var pBox = $(".opening__petals");
+    for (var k = 0; k < 14; k++) {
+      var pt = petalNode("petal");
+      pt.style.left = (Math.random() * 100) + "%";
+      pt.style.setProperty("--s", (14 + Math.random() * 18) + "px");
+      pt.style.setProperty("--d", (8 + Math.random() * 7) + "s");
+      pt.style.setProperty("--delay", (-Math.random() * 12) + "s");
+      pt.style.setProperty("--dx", (Math.random() * 120 - 60) + "px");
+      pt.style.setProperty("--spin", (4 + Math.random() * 5) + "s");
+      pBox.appendChild(pt);
+    }
+  }
+  function burst(container, n) {
+    if (reduceMotion) return;
+    for (var i = 0; i < n; i++) {
+      var b = petalNode("burst-petal");
+      var a = (i / n) * Math.PI * 2 + Math.random() * .4, r = 140 + Math.random() * 180;
+      b.style.setProperty("--bx", Math.cos(a) * r + "px");
+      b.style.setProperty("--by", Math.sin(a) * r + "px");
+      b.style.setProperty("--br", (Math.random() * 540 - 270) + "deg");
+      container.appendChild(b);
+      setTimeout(function (node) { node.remove(); }, 1300, b);
+    }
+  }
+  function ready() {
+    document.body.classList.remove("is-locked");
+    document.body.classList.add("is-ready");
+  }
   function openInvitation() {
+    burst(opening, 16);
     opening.classList.add("is-open");
-    unlock();
-    setTimeout(function () { opening.hidden = true; }, 1200);
+    ready();
+    setTimeout(function () { opening.hidden = true; }, 1150);
   }
   $("#openBtn").addEventListener("click", openInvitation);
-  if (location.hash && location.hash !== "#top") { opening.hidden = true; unlock(); }
+  if (location.hash && location.hash !== "#top") { opening.hidden = true; ready(); }
 
-  /* ============ スクロール表示 ============ */
-  if ("IntersectionObserver" in window) {
+  /* ============ 画面に入ったときの動き ============ */
+  var revealTargets = $$("[data-reveal], [data-reveal-children]");
+  if ("IntersectionObserver" in window && !reduceMotion) {
     var io = new IntersectionObserver(function (es) {
       es.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add("is-in"); io.unobserve(e.target); } });
-    }, { threshold: 0.15 });
-    $$(".reveal").forEach(function (n) { io.observe(n); });
+    }, { threshold: 0.18, rootMargin: "0px 0px -6% 0px" });
+    revealTargets.forEach(function (n) { io.observe(n); });
   } else {
-    $$(".reveal").forEach(function (n) { n.classList.add("is-in"); });
+    revealTargets.forEach(function (n) { n.classList.add("is-in"); });
   }
 
-  /* ============ カウントダウン ============ */
+  /* ============ スクロール：奥行き・進み具合・回答ボタン ============ */
+  var layers = $$(".scene .layer").map(function (g) {
+    var c = g.getAttribute("class");
+    var f = /clouds-far/.test(c) ? .12 : /clouds-near/.test(c) ? .2 : /sea/.test(c) ? .05 : /ridge2/.test(c) ? .1 : /ridge/.test(c) ? .07 : /trees/.test(c) ? .16 : /house/.test(c) ? .13 : /lawn/.test(c) ? .2 : 0;
+    return { g: g, f: f };
+  });
+  var bar = $("#progressBar"), cta = $("#rsvpCta"), rsvp = $("#rsvp"), hero = $("#top");
+  cta.hidden = false;
+  var ticking = false;
+  function onScroll() {
+    if (ticking) return; ticking = true;
+    requestAnimationFrame(function () {
+      ticking = false;
+      var y = window.scrollY, H = document.documentElement.scrollHeight - innerHeight;
+      bar.style.transform = "scaleX(" + (H > 0 ? Math.min(1, y / H) : 0) + ")";
+      if (!reduceMotion && y < innerHeight * 1.2) {
+        layers.forEach(function (l) { l.g.style.transform = "translateY(" + (-y * l.f) + "px)"; });
+      }
+      var r = rsvp.getBoundingClientRect();
+      var inRsvp = r.top < innerHeight * .9 && r.bottom > 0;
+      cta.classList.toggle("is-shown", y > hero.offsetHeight * .7 && !inRsvp);
+    });
+  }
+  window.addEventListener("scroll", onScroll, { passive: true });
+  window.addEventListener("resize", onScroll);
+  onScroll();
+
+  /* ============ カウントダウン（数字がめくれる） ============ */
   var target = new Date(C.ceremonyStart).getTime();
   function pad(n) { return n < 10 ? "0" + n : String(n); }
+  function setNum(id, v) {
+    var n = document.getElementById(id);
+    if (n.textContent === v) return;
+    n.textContent = v;
+    if (reduceMotion) return;
+    n.classList.remove("tick"); void n.offsetWidth; n.classList.add("tick");
+  }
   function tick() {
     var diff = target - Date.now();
     if (isNaN(diff)) return;
-    if (diff <= 0) {
-      $(".countdown").hidden = true; $("#cdAfter").hidden = false; return;
-    }
+    if (diff <= 0) { $(".cd").hidden = true; $(".cd__note").hidden = true; $("#cdAfter").hidden = false; return; }
     var s = Math.floor(diff / 1000);
-    $("#cdDays").textContent = Math.floor(s / 86400);
-    $("#cdHours").textContent = pad(Math.floor(s % 86400 / 3600));
-    $("#cdMins").textContent = pad(Math.floor(s % 3600 / 60));
-    $("#cdSecs").textContent = pad(s % 60);
-    setTimeout(tick, 1000);
+    setNum("cdDays", String(Math.floor(s / 86400)));
+    setNum("cdHours", pad(Math.floor(s % 86400 / 3600)));
+    setNum("cdMins", pad(Math.floor(s % 3600 / 60)));
+    setNum("cdSecs", pad(s % 60));
+    setTimeout(tick, 1000 - (Date.now() % 1000) + 5);
   }
   tick();
 
@@ -180,12 +333,37 @@
     form.insertBefore(note, form.firstChild);
   }
 
-  // 出席時のみの項目
+  function swap(from, to) {
+    from.hidden = true; to.hidden = false;
+    to.classList.remove("is-entering"); void to.offsetWidth; to.classList.add("is-entering");
+  }
+
+  // 出席時のみの項目（滑らかに開閉）
+  var attendOnly = $("#attendOnly");
   function syncAttend() {
     var v = (form.querySelector('[name="attendance"]:checked') || {}).value;
-    $("#attendOnly").hidden = v === "decline";
+    attendOnly.classList.toggle("is-collapsed", v === "decline");
+    attendOnly.setAttribute("aria-hidden", v === "decline" ? "true" : "false");
   }
   $$('[name="attendance"]', form).forEach(function (r) { r.addEventListener("change", syncAttend); });
+
+  // 必須項目の進み具合
+  var reqChecks = [
+    function () { return !!form.querySelector('[name="attendance"]:checked'); },
+    function () { return !!form.querySelector('[name="side"]:checked'); },
+    function () { return form.last_name.value.trim() && form.first_name.value.trim(); },
+    function () { return form.last_kana.value.trim() && form.first_kana.value.trim(); },
+    function () { return /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(form.email.value.trim()); }
+  ];
+  $("#reqTotal").textContent = reqChecks.length;
+  function syncProgress() {
+    var done = reqChecks.filter(function (fn) { return fn(); }).length;
+    $("#reqDone").textContent = done;
+    $("#reqBar").style.transform = "scaleX(" + (done / reqChecks.length) + ")";
+  }
+  form.addEventListener("input", syncProgress);
+  form.addEventListener("change", syncProgress);
+  syncProgress();
 
   // 同伴者
   var compBox = $("#companions"), max = C.maxCompanions || 4, compSeq = 0;
@@ -289,8 +467,12 @@
     return { errs: errs, companionErr: ce };
   }
 
+  var ERR_INPUTS = { name: ["last_name", "first_name"], kana: ["last_kana", "first_kana"], email: ["email"], phone: ["phone"], postal_code: ["postal_code"] };
   function showErrors(r) {
     $$("[data-err]", form).forEach(function (p) { p.textContent = r.errs[p.getAttribute("data-err")] || ""; });
+    Object.keys(ERR_INPUTS).forEach(function (k) {
+      ERR_INPUTS[k].forEach(function (n) { form[n].classList.toggle("is-invalid", !!r.errs[k]); });
+    });
     $$(".companion input", compBox).forEach(function (i) {
       i.classList.toggle("is-invalid", i.getAttribute("data-c") === "name" && !i.value.trim());
     });
@@ -303,14 +485,14 @@
     return !any;
   }
 
-  var current = null;
+  var pending = null;
   form.addEventListener("submit", function (e) {
     e.preventDefault();
     var d = collect();
     if (!showErrors(validate(d))) return;
-    current = d;
+    pending = d;
     renderConfirm(d);
-    form.hidden = true; $("#confirmView").hidden = false; $("#sendErr").textContent = "";
+    swap(form, $("#confirmView")); $("#sendErr").textContent = "";
     $("#rsvp").scrollIntoView({ behavior: "smooth" });
   });
 
@@ -334,21 +516,22 @@
   }
 
   $("#backBtn").addEventListener("click", function () {
-    $("#confirmView").hidden = true; form.hidden = false;
+    swap($("#confirmView"), form);
     $("#rsvp").scrollIntoView({ behavior: "smooth" });
   });
 
   var sending = false;
   $("#sendBtn").addEventListener("click", function () {
-    if (sending || !current) return;
+    if (sending || !pending) return;
     sending = true;
     var btn = this; btn.disabled = true; btn.textContent = "送信中…";
-    send(current).then(function () {
+    send(pending).then(function () {
       storage(function (ls) { ls.setItem("rsvp_submitted", "1"); });
-      $("#confirmView").hidden = true; $("#thanksView").hidden = false;
-      $("#thanksMsg").textContent = current.attendance === "attend"
+      $("#thanksMsg").textContent = pending.attendance === "attend"
         ? "ご回答ありがとうございました\n当日お会いできることを楽しみにしております"
         : "ご回答ありがとうございました\nまたお会いできる日を楽しみにしております";
+      swap($("#confirmView"), $("#thanksView"));
+      burst($("#thanksBurst"), 14);
       $("#rsvp").scrollIntoView({ behavior: "smooth" });
     }).catch(function (err) {
       $("#sendErr").textContent = err && err.userMessage ? err.userMessage : "送信に失敗しました。通信環境をご確認のうえ、もう一度お試しください。";
