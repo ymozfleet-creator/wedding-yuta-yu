@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data:; connect-src 'self' https://*.supabase.co; frame-src https://www.google.com; base-uri 'none'; form-action 'none'; object-src 'none'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data: https://images.unsplash.com; connect-src 'self' https://*.supabase.co; frame-src https://www.google.com; base-uri 'none'; form-action 'none'; object-src 'none'">
 <meta name="referrer" content="strict-origin-when-cross-origin">
 <meta name="robots" content="noindex, nofollow">
 <meta name="theme-color" content="#1673c4">
@@ -62,7 +62,7 @@
     <div class="hero__art">
 __SCENE__
     </div>
-    <div class="hero__photo" id="heroPhoto" hidden></div>
+    <div class="hero__photo" id="heroPhoto" hidden><div class="hero__photo-img"></div></div>
     <div class="hero__veil"></div>
     <div class="hero__text">
       <p class="hero__sub">We're getting married in Hawaiʻi</p>
@@ -287,6 +287,7 @@ __SCENE__
     <p class="footer__mahalo" data-reveal="head"><span class="head__script">Mahalo</span></p>
     <p class="footer__closing" data-bind="closing"></p>
     <p class="footer__names"><span data-bind="groom.nameEn"></span> &amp; <span data-bind="bride.nameEn"></span></p>
+    <p class="footer__credits" id="credits"></p>
   </footer>
 </main>
 

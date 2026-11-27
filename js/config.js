@@ -10,7 +10,7 @@ window.WEDDING_CONFIG = {
     nameJa: "茂住 雄太",
     nameEn: "Yuta",
     role: "新郎",
-    photo: "images/groom.svg",
+    photo: "",  // 写真（例 "images/groom.jpg"）を入れると表示。空欄の間は頭文字を表示
     profile: [
       // 例："趣味：キャンプ・コーヒー"
     ]
@@ -19,22 +19,27 @@ window.WEDDING_CONFIG = {
     nameJa: "島崎 唯有",
     nameEn: "Yu",
     role: "新婦",
-    photo: "images/bride.svg",
+    photo: "",
     profile: [
       // 例："趣味：お菓子づくり・旅行"
     ]
   },
 
-  /* ---------- メイン写真・ギャラリー（現在はデモのイラスト。写真のjpgに差し替え可） ---------- */
-  heroPhoto: "",  // 写真（例 "images/hero.jpg"）を入れるとイラストの代わりに表示
+  /* ---------- メイン写真・ギャラリー ----------
+   現在は無料素材（Unsplash）の仮写真です。お二人の写真が届いたら
+   images/ に置いて "images/xxx.jpg" の形で書き換えてください。 */
+  heroPhoto: "https://images.unsplash.com/photo-1547537352-ae90c682877e?w=2000&q=75&auto=format&fit=crop",
   gallery: [
-    "images/gallery1.svg",
-    "images/gallery2.svg",
-    "images/gallery3.svg",
-    "images/gallery4.svg",
-    "images/gallery5.svg",
-    "images/gallery6.svg"
+    "https://images.unsplash.com/photo-1573993228224-5ffd3f00511c?w=1200&q=75&auto=format&fit=crop",
+    "https://images.unsplash.com/photo-1738827529678-ad65162296ef?w=1200&q=75&auto=format&fit=crop",
+    "https://images.unsplash.com/photo-1708906197974-677b5406d890?w=1200&q=75&auto=format&fit=crop",
+    "https://images.unsplash.com/photo-1780025281172-6479095c09e8?w=1200&q=75&auto=format&fit=crop",
+    "https://images.unsplash.com/photo-1617198294099-2431e7a77e30?w=1200&q=75&auto=format&fit=crop",
+    "https://images.unsplash.com/photo-1588973269798-173fa2699b99?w=1200&q=75&auto=format&fit=crop",
+    "https://images.unsplash.com/flagged/photo-1556937472-20f0e8134fc9?w=1200&q=75&auto=format&fit=crop"
   ],
+  // 仮写真の撮影者（Unsplashライセンス。表記は任意だが敬意として掲載）
+  photoCredits: "Photos: Zetong Li, Cosmin Serban, User_Pascal, Vitor Rossetto, Abhijeet Apsunde, Lauren Ostrout, Kelvin Tu, KOJI FUTAMI / Unsplash",
 
   /* ---------- ご挨拶文（段落ごとに1要素） ---------- */
   greeting: [

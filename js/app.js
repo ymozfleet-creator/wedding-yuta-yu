@@ -34,8 +34,11 @@
   }
   // 画像のパスは自サイト内のファイルのみ許可（外部URLや javascript: を拒否）
   function safeImg(src) {
-    return typeof src === "string" && /^[\w\-./]+\.(jpe?g|png|webp|gif|avif|svg)$/i.test(src) && src.indexOf("..") === -1 ? src : "";
+    if (typeof src !== "string") return "";
+    if (/^https:\/\/images\.unsplash\.com\/[\w\-\/]+\?[\w=&%.,\-]*$/.test(src)) return src;  // 仮写真（Unsplash）
+    return /^[\w\-./]+\.(jpe?g|png|webp|gif|avif|svg)$/i.test(src) && src.indexOf("..") === -1 ? src : "";
   }
+  function bigger(src) { return src.replace(/([?&])w=\d+/, "$1w=2000"); }
   function setBg(node, src) {
     var s = safeImg(src);
     if (s) node.style.backgroundImage = 'url("' + s + '")';
@@ -63,7 +66,9 @@
   document.title = namesEn + " | Wedding Invitation";
 
   // メイン：写真が設定されていれば写真、なければイラストの風景
-  if (setBg($("#heroPhoto"), C.heroPhoto)) { $("#heroPhoto").hidden = false; $(".hero__art").hidden = true; }
+  var heroPhoto = $("#heroPhoto");
+  if (setBg($(".hero__photo-img"), C.heroPhoto)) { heroPhoto.hidden = false; $(".hero__art").hidden = true; document.body.classList.add("has-hero-photo"); }
+  if (C.photoCredits) $("#credits").textContent = C.photoCredits;
 
   // 縦長の画面では邸宅とお二人が中央に来るよう構図を調整
   var scene = $(".scene");
@@ -95,7 +100,8 @@
     ring.setAttribute("class", "person__ring"); ring.setAttribute("viewBox", "0 0 100 100"); ring.setAttribute("aria-hidden", "true");
     var c = document.createElementNS(SVGNS, "circle"); c.setAttribute("cx", "50"); c.setAttribute("cy", "50"); c.setAttribute("r", "48.5");
     ring.appendChild(c); frame.appendChild(ring);
-    var ph = el("div", "person__photo"); setBg(ph, p.photo);
+    var ph = el("div", "person__photo");
+    if (!setBg(ph, p.photo)) { ph.classList.add("person__photo--initial"); ph.appendChild(el("span", "person__initial", (p.nameEn || p.nameJa || "").charAt(0))); }
     ph.setAttribute("role", "img"); ph.setAttribute("aria-label", p.role + " " + p.nameJa);
     frame.appendChild(ph);
     frame.appendChild(useIcon("flower", "person__flower"));
@@ -155,7 +161,7 @@
 
   function openLightbox(src) {
     var lb = el("div", "lightbox"); lb.setAttribute("role", "dialog"); lb.setAttribute("aria-label", "写真の拡大表示");
-    var img = el("img"); img.src = src; img.alt = "";
+    var img = el("img"); img.src = bigger(src); img.alt = "";
     lb.appendChild(img);
     var close = function () { lb.remove(); document.removeEventListener("keydown", onKey); };
     var onKey = function (e) { if (e.key === "Escape") close(); };
@@ -283,6 +289,7 @@
       bar.style.transform = "scaleX(" + (H > 0 ? Math.min(1, y / H) : 0) + ")";
       if (!reduceMotion && y < innerHeight * 1.2) {
         layers.forEach(function (l) { l.g.style.transform = "translateY(" + (-y * l.f) + "px)"; });
+        if (!heroPhoto.hidden) heroPhoto.style.transform = "translateY(" + (y * .35) + "px)";
       }
       var r = rsvp.getBoundingClientRect();
       var inRsvp = r.top < innerHeight * .9 && r.bottom > 0;
