@@ -75,10 +75,12 @@ a { color: var(--sea); }
    ========================================================= */
 .opening { position: fixed; inset: 0; z-index: 100; display: grid; place-items: center; overflow: hidden; }
 .opening__bg {
-  position: absolute; inset: -10%;
+  position: absolute; inset: 0;
   background:
-    radial-gradient(60% 45% at 50% 38%, rgba(255,255,255,.55), transparent 70%),
-    linear-gradient(180deg, #1673c4 0%, #3b9ae4 45%, #9fd4f5 100%);
+    radial-gradient(70% 55% at 50% 50%, rgba(6,28,58,.42), rgba(6,28,58,.12) 75%),
+    linear-gradient(180deg, rgba(6,28,58,.15), rgba(6,28,58,0) 30%, rgba(6,28,58,.25) 100%),
+    url("../images/opening.jpg") center 85% / cover no-repeat,
+    #1f5f9e;
   animation: bgIn 2.4s var(--ease) both;
 }
 @keyframes bgIn { from { transform: scale(1.12); filter: saturate(.6) brightness(.85); } to { transform: none; filter: none; } }
