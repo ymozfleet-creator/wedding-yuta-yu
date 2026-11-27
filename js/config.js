@@ -10,7 +10,7 @@ window.WEDDING_CONFIG = {
     nameJa: "茂住 雄太",
     nameEn: "Yuta",
     role: "新郎",
-    photo: "",  // 写真（例 "images/groom.jpg"）を入れると表示。空欄の間は頭文字を表示
+    photo: "images/groom.jpg",  // 空欄にすると頭文字を表示
     profile: [
       // 例："趣味：キャンプ・コーヒー"
     ]
@@ -19,27 +19,33 @@ window.WEDDING_CONFIG = {
     nameJa: "島崎 唯有",
     nameEn: "Yu",
     role: "新婦",
-    photo: "",
+    photo: "images/bride.jpg",
     profile: [
       // 例："趣味：お菓子づくり・旅行"
     ]
   },
 
   /* ---------- メイン写真・ギャラリー ----------
-   現在は無料素材（Unsplash）の仮写真です。お二人の写真が届いたら
-   images/ に置いて "images/xxx.jpg" の形で書き換えてください。 */
-  heroPhoto: "https://images.unsplash.com/photo-1547537352-ae90c682877e?w=2000&q=75&auto=format&fit=crop",
+   写真は images/ に置き、ここにファイル名を書きます。
+   公開前に位置情報（GPS）を削除し、長辺1600px程度に縮小しています。 */
+  heroPhoto: "images/hero.jpg",
   gallery: [
-    "https://images.unsplash.com/photo-1573993228224-5ffd3f00511c?w=1200&q=75&auto=format&fit=crop",
-    "https://images.unsplash.com/photo-1738827529678-ad65162296ef?w=1200&q=75&auto=format&fit=crop",
-    "https://images.unsplash.com/photo-1708906197974-677b5406d890?w=1200&q=75&auto=format&fit=crop",
-    "https://images.unsplash.com/photo-1780025281172-6479095c09e8?w=1200&q=75&auto=format&fit=crop",
-    "https://images.unsplash.com/photo-1617198294099-2431e7a77e30?w=1200&q=75&auto=format&fit=crop",
-    "https://images.unsplash.com/photo-1588973269798-173fa2699b99?w=1200&q=75&auto=format&fit=crop",
-    "https://images.unsplash.com/flagged/photo-1556937472-20f0e8134fc9?w=1200&q=75&auto=format&fit=crop"
+    "images/g01.jpg",
+    "images/g02.jpg",
+    "images/g03.jpg",
+    "images/g04.jpg",
+    "images/g05.jpg",
+    "images/g06.jpg",
+    "images/g07.jpg",
+    "images/g08.jpg",
+    "images/g09.jpg",
+    "images/g10.jpg",
+    "images/g11.jpg",
+    "images/g12.jpg",
+    "images/g13.jpg",
+    "images/photo1.jpg"
   ],
-  // 仮写真の撮影者（Unsplashライセンス。表記は任意だが敬意として掲載）
-  photoCredits: "Photos: Zetong Li, Cosmin Serban, User_Pascal, Vitor Rossetto, Abhijeet Apsunde, Lauren Ostrout, Kelvin Tu, KOJI FUTAMI / Unsplash",
+  photoCredits: "",
 
   /* ---------- ご挨拶文（段落ごとに1要素） ---------- */
   greeting: [
@@ -51,13 +57,14 @@ window.WEDDING_CONFIG = {
 
   /* ---------- 日時（日本時間で記載） ---------- */
   // 挙式開始時刻（カウントダウンの基準）
-  ceremonyStart: "2027-06-23T14:00:00-10:00",  // ハワイ時間（HST, UTC-10）
+  ceremonyStart: "2027-06-23T10:00:00-10:00",  // ハワイ時間（HST, UTC-10）
   dateLabel: "2027年6月23日（水）ハワイ時間",
   schedule: [
-    { label: "挙式", time: "14:00" },
-    { label: "ウェルカムドリンク", time: "15:40" },
-    { label: "ガーデンパーティー", time: "16:00" },
-    { label: "お開き（予定）", time: "18:00" }
+    { label: "集合（バスで挙式会場へ）", time: "9:00" },
+    { label: "挙式（リジェストランドハウス）", time: "10:00" },
+    { label: "ケーキカット", time: "" },
+    { label: "バスでパーティー会場へ", time: "" },
+    { label: "パーティー（ミシェルズ）", time: "12:30" }
   ],
 
   /* ---------- 回答締切（この日時を過ぎるとフォームを閉じます） ---------- */
@@ -72,12 +79,23 @@ window.WEDDING_CONFIG = {
     access: [
       "ワイキキから車で約15分、タンタラスの丘の森に建つ歴史的邸宅です",
       "ガーデンからはダイヤモンドヘッドとワイキキの海を一望できます",
-      "山道を上った先にあるため、会場までの移動方法はあらためてご案内いたします"
+      "当日は集合場所から会場までバスでご案内します（集合場所は後日お知らせします）"
     ],
     // メイン写真の下に出す英字の場所表記
     placeLine: "Liljestrand House, Honolulu",
     // Googleマップで表示する検索語（会場名か住所）
     mapQuery: "Liljestrand House, 3300 Tantalus Dr, Honolulu, HI 96822"
+  },
+
+  /* ---------- パーティー会場 ---------- */
+  party: {
+    name: "ミシェルズ（Michel's at the Colony Surf）",
+    address: "2895 Kalakaua Avenue, Honolulu, HI 96815",
+    access: [
+      "ワイキキの海辺に建つフレンチレストランです",
+      "挙式会場からバスでご案内します"
+    ],
+    mapQuery: "Michel's at the Colony Surf, 2895 Kalakaua Ave, Honolulu, HI 96815"
   },
 
   /* ---------- その他のご案内（不要なら空配列 [] に） ---------- */

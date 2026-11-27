@@ -174,7 +174,7 @@
   var sch = $("#schedule");
   (C.schedule || []).forEach(function (s, i) {
     var li = el("li"); li.style.setProperty("--i", i);
-    li.appendChild(el("span", "timeline__time", s.time));
+    li.appendChild(el("span", "timeline__time" + (s.time ? "" : " timeline__time--none"), s.time || ""));
     li.appendChild(el("span", "timeline__label", s.label));
     sch.appendChild(li);
   });
@@ -204,6 +204,9 @@
   iframe.referrerPolicy = "no-referrer-when-downgrade";
   $("#mapWrap").insertBefore(iframe, $("#mapWrap").firstChild);
   $("#mapLink").href = "https://www.google.com/maps/search/?api=1&query=" + q;
+  if (C.party && C.party.name) {
+    $("#partyMapLink").href = "https://www.google.com/maps/search/?api=1&query=" + encodeURIComponent(C.party.mapQuery || C.party.address || "");
+  } else { $("#partyBlock").hidden = true; }
 
   // そのほかのご案内（内容に合うアイコン付き）
   var notes = $("#notes");
