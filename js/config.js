@@ -28,8 +28,9 @@ window.WEDDING_CONFIG = {
   /* ---------- メイン写真・ギャラリー ----------
    写真は images/ に置き、ここにファイル名を書きます。
    公開前に位置情報（GPS）を削除し、長辺1600px程度に縮小しています。 */
-  heroPhoto: "images/hero.jpg",
+  heroPhoto: "images/hero-sunset.jpg",
   gallery: [
+    "images/hero.jpg",
     "images/g01.jpg",
     "images/g02.jpg",
     "images/g03.jpg",
