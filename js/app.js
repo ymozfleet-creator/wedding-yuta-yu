@@ -338,8 +338,10 @@
 
   var prev = storage(function (ls) { return ls.getItem("rsvp_submitted"); });
   if (prev) {
-    var note = el("p", "field__hint", "このブラウザからは回答済みです。内容を変更する場合は、もう一度送信してください（新しい回答を優先します）。");
-    note.classList.add("field__err--center");
+    var note = el("div", "answered");
+    note.setAttribute("role", "status");
+    note.appendChild(el("p", "answered__title", "このブラウザからは回答済みです"));
+    note.appendChild(el("p", "answered__text", "内容を変更したい場合だけ、もう一度送信してください。新しい回答が優先されます。"));
     form.insertBefore(note, form.firstChild);
   }
 
